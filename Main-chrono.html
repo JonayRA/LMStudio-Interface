@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interaction des Questions</title>
+    <style>
+        #reponse {
+            width: 100%;
+            height: 100px;
+            margin-top: 30px;
+        }
+        #chronometre {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            border: 3px solid black;
+            border-radius: 5px;
+            /*background-color: black;*/
+        }
+    </style>
+</head>
+<body>
+    <div id="question"></div>
+    <textarea id="reponse" placeholder="Écrivez votre réponse ici" oninput="compterMots()" maxlength="1000"></textarea>
+    <div id="compteur"></div>
+    <button id="envoyer">Envoyer</button>
+    <div id="texteEchelle" style="display: none;">Veuillez évaluer votre réponse :</div>
+    <div id="echelle1" style="display: none;"></div>
+    <button id="evaluer1" style="display: none;">Évaluer</button>
+    <div id="echelle2" style="display: none;"></div>
+    <button id="evaluer2" style="display: none;">Évaluer</button>
+    <div id="chronometre">00:00</div>
+
+    <script>
+        let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
+        let reponses = []; // Pour enregistrer les réponses
+        let minEchelle = 1; // Minimum de l'échelle
+        let maxEchelle = 5; // Maximum de l'échelle
+        let maxMots = 200; // Maximum de mots
+
+        function creerEchelle(idEchelle) {
+            let divEchelle = document.getElementById(idEchelle);
+            for (let i = minEchelle; i <= maxEchelle; i++) {
+                let radio = document.createElement("input");
+                radio.type = "radio";
+                radio.name = idEchelle;
+                radio.value = i;
+                divEchelle.appendChild(radio);
+                divEchelle.appendChild(document.createTextNode(" " + i + " "));
+            }
+        }
+
+        function reinitialiserEchelle(idEchelle) {
+            let inputsEchelle = document.querySelectorAll('input[name="' + idEchelle + '"]');
+            for (let i = 0; i < inputsEchelle.length; i++) {
+                inputsEchelle[i].checked = false;
+            }
+        }
+
+        function afficherQuestion() {
+            if (questions.length > 0) {
+                let question = questions.shift(); // Obtient la question suivante
+                document.getElementById("question").innerText = question;
+                document.getElementById("texteEchelle").style.display = "none"; // Cache le texte de l'échelle
+                document.getElementById("echelle1").style.display = "none"; // Cache l'échelle 1
+                document.getElementById("echelle2").style.display = "none"; // Cache l'échelle 2
+                document.getElementById("reponse").style.display = "block"; // Affiche la réponse
+                document.getElementById("envoyer").style.display = "block"; // Affiche le bouton d'envoi
+                document.getElementById("evaluer1").style.display = "none"; // Cache le bouton d'évaluation 1
+                document.getElementById("evaluer2").style.display = "none"; // Cache le bouton d'évaluation 2
+                document.getElementById("compteur").style.display = "block"; // Affiche le compteur de mots
+                document.getElementById("reponse").value = ""; // Nettoie la réponse
+                document.getElementById("chronometre").style.display = "block"; // Affiche le chronometre
+                compterMots(); // Met à jour le compteur de mots
+                debut = Date.now(); // Enregistre le début du temps
+                intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
+            } else {
+                // Toutes les questions ont été répondues
+                console.log(reponses); // Ici, vous pouvez faire ce que vous voulez avec les réponses
+                clearInterval(intervalId); // Arrête le chronomètre
+            }
+        }
+
+        function repondre() {
+            let reponse = document.getElementById("reponse").value;
+            reponses.push({question: document.getElementById("question").innerText, reponse});
+            document.getElementById("reponse").style.display = "none"; // Cache la réponse
+            document.getElementById("texteEchelle").style.display = "block"; // Affiche le texte de l'échelle
+            document.getElementById("echelle1").style.display = "block"; // Affiche l'échelle 1
+            document.getElementById("envoyer").style.display = "none"; // Cache le bouton d'envoi
+            document.getElementById("evaluer1").style.display = "block"; // Affiche le bouton d'évaluation 1
+            document.getElementById("compteur").style.display = "none"; // Cache le compteur de mots
+            reinitialiserEchelle("echelle1"); // Réinitialise l'échelle 1
+            document.getElementById("chronometre").style.display = "none"; // Cache le chronometre
+            clearInterval(intervalId); // Arrête le chronomètre
+        }
+
+        function evaluer1() {
+            let echelle = document.querySelector('input[name="echelle1"]:checked').value;
+            reponses[reponses.length - 1].echelle1 = echelle; // Enregistre l'échelle 1 de la dernière réponse
+            document.getElementById("echelle1").style.display = "none"; // Cache l'échelle 1
+            document.getElementById("echelle2").style.display = "block"; // Affiche l'échelle 2
+            document.getElementById("evaluer1").style.display = "none"; // Cache le bouton d'évaluation 1
+            document.getElementById("evaluer2").style.display = "block"; // Affiche le bouton d'évaluation 2
+            reinitialiserEchelle("echelle2"); // Réinitialise l'échelle 2
+            debut = Date.now(); // Enregistre le début du temps
+            intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
+        }
+
+        function evaluer2() {
+            let echelle = document.querySelector('input[name="echelle2"]:checked').value;
+            reponses[reponses.length - 1].echelle2 = echelle; // Enregistre l'échelle 2 de la dernière réponse
+            afficherQuestion();
+        }
+
+        function compterMots() {
+            let reponse = document.getElementById("reponse").value;
+            let mots = reponse.split(/\s+/).filter(function(mot) {
+                return mot.length > 0;
+            }).length;
+            document.getElementById("compteur").innerText = "Mots : " + mots + "/" + maxMots;
+            if (mots > maxMots) {
+                document.getElementById("envoyer").disabled = true;
+            } else {
+                document.getElementById("envoyer").disabled = false;
+            }
+        }
+
+        function majChronometre() {
+            let secondes = Math.floor((Date.now() - debut) / 1000);
+            let minutes = Math.floor(secondes / 60);
+            secondes %= 60;
+            document.getElementById("chronometre").innerText = (minutes < 10 ? "0" : "") + minutes + ":" + (secondes < 10 ? "0" : "") + secondes;
+
+            // Change la couleur du chronomètre en fonction du temps écoulé
+            if (minutes < 2) {
+                document.getElementById("chronometre").style.backgroundColor = "green";
+            } else if (minutes < 4) {
+                document.getElementById("chronometre").style.backgroundColor = "yellow";
+            } else if (minutes < 5) {
+                document.getElementById("chronometre").style.backgroundColor = "orange";
+            } else {
+                document.getElementById("chronometre").style.backgroundColor = "red";
+            }
+        }
+
+        document.getElementById("envoyer").addEventListener("click", repondre);
+        document.getElementById("evaluer1").addEventListener("click", evaluer1);
+        document.getElementById("evaluer2").addEventListener("click", evaluer2);
+        creerEchelle("echelle1");
+        creerEchelle("echelle2");
+        afficherQuestion();
+    </script>
+</body>
+</html>

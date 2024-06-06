@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title> Expérience LLM </title>
+    <!--<h1> Bienvenue à l'expérience </h1>-->
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        #enlaceBoton {
+            margin-top: 20px;
+            margin-left: 68px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label for="numParticipant"> Numéro participant:</label>
+        <input type="number" id="numParticipant1" name="numParticipant"><br><br>
+
+        <!--<label for="numParticipantCS"> Numéro participant CS:</label>
+        <input type="number" id="numParticipantCS1" name="numParticipantCS"><br><br>
+
+        <label for="numParticipantCS2"> Numéro participant CS2:</label>
+        <input type="number" id="numParticipantCS2" name="numParticipantCSdeux"><br><br>-->
+
+        <label for="session">Session:</label>
+        <input type="number" id="session1" name="session" min="1" max="3"><br><br>
+        
+        <label for="condition">Condition:</label>
+        <input type="number" id="condition1" name="condition" min="1" max="3"><br><br>
+
+        <input type="checkbox" id="consentement" required>
+        <label for="consentement">Avez-vous signé le consentement informé?</label><br><br>
+        
+        <button type="button" id="enlaceBoton">Débuter l'expérience</button>
+    </form>
+
+
+
+    
+
+    <script>
+        // Obtener referencia al botón
+        const enlaceBoton = document.getElementById('enlaceBoton');
+        const sessionInput = document.getElementById("session1");
+        const conditionInput = document.getElementById("condition1");
+
+        sessionInput.addEventListener("input", function() {
+            const value = parseInt(sessionInput.value);
+            const max = parseInt(sessionInput.getAttribute("max"));
+            const min = parseInt(sessionInput.getAttribute("min"));
+
+        if (value > max || value < min) {
+            alert("La valeur est invalide.");
+            sessionInput.value = null;
+        }
+        });
+
+        conditionInput.addEventListener("input", function() {
+            const value = parseInt(conditionInput.value);
+            const max = parseInt(conditionInput.getAttribute("max"));
+            const min = parseInt(conditionInput.getAttribute("min"));
+
+        if (value > max || value < min) {
+            alert("La valeur est invalide.");
+            conditionInput.value = null;
+        }
+        });
+
+
+
+        // Agregar un evento click al botón
+        enlaceBoton.addEventListener('click', function() {
+            // Cambiar la ubicación a la página deseada
+            if (consentement.checked) {
+            const numParticipant = document.getElementById("numParticipant1").value;
+            const condition = document.getElementById("condition1").value;
+            const session = document.getElementById("session1").value;
+            /*const numParticipantCS = document.getElementById("numParticipantCS1").value;
+            const numParticipantCSdeux = document.getElementById("numParticipantCS2").value;
+            console.log(numParticipant,condition);
+            localStorage.setItem("numParticipantCS", numParticipantCS);
+            localStorage.setItem("numParticipantCS2", numParticipantCSdeux)*/
+            localStorage.setItem("numParticipant", numParticipant);
+            localStorage.setItem("condition", condition);
+            localStorage.setItem("session", session);
+
+
+
+            window.location.href = "Bienvenue.html?numParticipant=" + encodeURIComponent(numParticipant) + "&condition=" + encodeURIComponent(condition) + "&session=" + encodeURIComponent(session); /* + "&numParticipantCS=" + encodeURIComponent(numParticipantCS) + "&numParticipantCS2=" + encodeURIComponent(numParticipantCSdeux); */
+        } else {
+            alert("Assurez-vous d'avoir signé le consentement informé");
+        }
+        });
+    </script>
+</body>
+</html>
