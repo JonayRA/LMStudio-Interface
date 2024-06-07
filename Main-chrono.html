@@ -18,8 +18,8 @@
             /*background-color: black;*/
         }
         .bouton {
-            /*margin-top: 20px;
-            margin-left: 68px;*/
+            margin-top: 20px;
+            /*margin-left: 68px;*/
             padding: 10px 20px;
             font-size: 1em;
             color: #fff;
@@ -38,6 +38,9 @@
             display: block; /* hace que el botón sea un bloque de nivel */
             text-align: center; /* alinea el botón a la derecha */
         }
+        #evaluerConnaissance{
+            margin-top: 20px;
+        }
 
     </style>
 </head>
@@ -54,6 +57,11 @@
     <div id="echelle3" style="display: none;"></div>
     <button class="bouton" id="evaluer3" style="display: none;">Évaluer</button>
     <div id="chronometre">00:00</div>
+    <div id="connaissance" style="display: none;">
+
+        <input type="number" id="niveauConnaissance" min="0" max="100">
+    </div>
+    <button class="bouton" id="evaluerConnaissance" style="display: none;">Évaluer</button>
 
     <script>
         // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
@@ -126,6 +134,8 @@
                 document.getElementById("compteur").style.display = "block"; // Affiche le compteur de mots
                 document.getElementById("reponse").value = ""; // Nettoie la réponse
                 document.getElementById("chronometre").style.display = "block"; // Affiche le chronometre
+                document.getElementById("connaissance").style.display = "none"; // Affiche la question de connaissance
+                document.getElementById("evaluerConnaissance").style.display = "none"; // Affiche le bouton d'évaluation de connaissance
                 compterMots(); // Met à jour le compteur de mots
                 debut = Date.now(); // Enregistre le début du temps
                 intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
@@ -195,6 +205,19 @@
             let echelle = document.querySelector('input[name="echelle3"]:checked').value;
             verifierEchelle("echelle3", "evaluer3");
             reponses[reponses.length - 1].echelle3 = echelle; // Enregistre l'échelle 2 de la dernière réponse
+            // afficherQuestion();
+            document.getElementById("echelle3").style.display = "none"; // Cache l'échelle 1
+            document.getElementById("evaluer3").style.display = "none";
+            document.getElementById("question").innerText = "";
+            document.getElementById("texteEchelle").innerText = "Sur une échelle de 0 à 100, j’estime ma connaissance initiale par rapport au sujet de la question au niveau suivant.";
+            document.getElementById("connaissance").style.display = "block"; // Affiche la question de connaissance
+            document.getElementById("evaluerConnaissance").style.display = "block"; // Affiche le bouton d'évaluation de connaissance
+        }
+
+        function evaluerConnaissance(){
+            let nivConfiance = document.getElementById('niveauConnaissance').value;
+            reponses[reponses.length - 1].confiance = nivConfiance;
+            document.getElementById("niveauConnaissance").value = "";
             afficherQuestion();
         }
 
@@ -237,6 +260,7 @@
         document.getElementById("evaluer1").addEventListener("click", evaluer1);
         document.getElementById("evaluer2").addEventListener("click", evaluer2);
         document.getElementById("evaluer3").addEventListener("click", evaluer3);
+        document.getElementById("evaluerConnaissance").addEventListener("click",evaluerConnaissance);
         creerEchelle("echelle1");
         creerEchelle("echelle2");
         creerEchelle("echelle3");
