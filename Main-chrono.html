@@ -17,18 +17,40 @@
             border-radius: 5px;
             /*background-color: black;*/
         }
+        .bouton {
+            /*margin-top: 20px;
+            margin-left: 68px;*/
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            cursor: pointer;
+        }
+        .bouton:disabled {
+            background-color: #ccc; /* change la couleur de fond lorsque le bouton est désactivé */
+            cursor: not-allowed; /* change le curseur lorsque le bouton est désactivé */
+        }
+        #compteur {
+            text-align: right; /* alinea el texto a la derecha */
+        }
+        #envoyer {
+            display: block; /* hace que el botón sea un bloque de nivel */
+            text-align: center; /* alinea el botón a la derecha */
+        }
+
     </style>
 </head>
 <body>
     <div id="question"></div>
     <textarea id="reponse" placeholder="Écrivez votre réponse ici" oninput="compterMots()" maxlength="1000"></textarea>
     <div id="compteur"></div>
-    <button id="envoyer">Envoyer</button>
+    <button class="bouton" id="envoyer">Envoyer</button>
     <div id="texteEchelle" style="display: none;">Veuillez évaluer votre réponse :</div>
     <div id="echelle1" style="display: none;"></div>
-    <button id="evaluer1" style="display: none;">Évaluer</button>
+    <button class="bouton" id="evaluer1" style="display: none;">Évaluer</button>
     <div id="echelle2" style="display: none;"></div>
-    <button id="evaluer2" style="display: none;">Évaluer</button>
+    <button class="bouton" id="evaluer2" style="display: none;">Évaluer</button>
     <div id="chronometre">00:00</div>
 
     <script>
@@ -45,6 +67,10 @@
                 radio.type = "radio";
                 radio.name = idEchelle;
                 radio.value = i;
+                radio.addEventListener("click", function() {
+                    if(idEchelle == "echelle1"){idBouton = "evaluer1"}else{idBouton = "evaluer1"};
+                    verifierEchelle(idEchelle, idBouton);
+                });
                 divEchelle.appendChild(radio);
                 divEchelle.appendChild(document.createTextNode(" " + i + " "));
             }
@@ -95,6 +121,18 @@
             clearInterval(intervalId); // Arrête le chronomètre
         }
 
+        function verifierEchelle(idEchelle, idBouton) {
+            let echelleElement = document.querySelector('input[name="' + idEchelle + '"]:checked');
+            let bouton = document.getElementById(idBouton);
+            if (echelleElement) {
+                bouton.disabled = false;
+                bouton.style.backgroundColor = "#007BFF"; // couleur de fond normale
+            } else {
+                bouton.disabled = true;
+                bouton.style.backgroundColor = "#ccc"; // couleur de fond lorsque le bouton est désactivé
+            }
+        }
+
         function evaluer1() {
             let echelle = document.querySelector('input[name="echelle1"]:checked').value;
             reponses[reponses.length - 1].echelle1 = echelle; // Enregistre l'échelle 1 de la dernière réponse
@@ -109,6 +147,7 @@
 
         function evaluer2() {
             let echelle = document.querySelector('input[name="echelle2"]:checked').value;
+            verifierEchelle("echelle2", "evaluer2");
             reponses[reponses.length - 1].echelle2 = echelle; // Enregistre l'échelle 2 de la dernière réponse
             afficherQuestion();
         }
@@ -120,6 +159,8 @@
             }).length;
             document.getElementById("compteur").innerText = "Mots : " + mots + "/" + maxMots;
             if (mots > maxMots) {
+                document.getElementById("envoyer").disabled = true;
+            } else if (mots == 0) {
                 document.getElementById("envoyer").disabled = true;
             } else {
                 document.getElementById("envoyer").disabled = false;
@@ -143,7 +184,8 @@
                 document.getElementById("chronometre").style.backgroundColor = "red";
             }
         }
-
+        verifierEchelle("echelle1", "evaluer1");
+        verifierEchelle("echelle2", "evaluer2");
         document.getElementById("envoyer").addEventListener("click", repondre);
         document.getElementById("evaluer1").addEventListener("click", evaluer1);
         document.getElementById("evaluer2").addEventListener("click", evaluer2);
