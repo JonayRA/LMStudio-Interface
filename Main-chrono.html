@@ -54,7 +54,11 @@
     <div id="chronometre">00:00</div>
 
     <script>
-        let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
+        // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
+        let questions = [];
+        for (let i = 1; i <= 50; i++) {
+            questions.push("Question " + i);
+        }
         let reponses = []; // Pour enregistrer les réponses
         let minEchelle = 1; // Minimum de l'échelle
         let maxEchelle = 5; // Maximum de l'échelle
@@ -87,9 +91,17 @@
 
         }
 
+        function obtenirQuestionAleatoire() {
+            let indiceAleatoire = Math.floor(Math.random() * questions.length);
+            let question = questions[indiceAleatoire];
+            questions.splice(indiceAleatoire, 1); // Supprime la question du tableau pour éviter la répétition
+            return question;
+        }
+
         function afficherQuestion() {
             if (questions.length > 0) {
-                let question = questions.shift(); // Obtient la question suivante
+                //let question = questions.shift(); // Obtient la question suivante
+                let question = obtenirQuestionAleatoire();
                 document.getElementById("question").innerText = question;
                 document.getElementById("texteEchelle").style.display = "none"; // Cache le texte de l'échelle
                 document.getElementById("echelle1").style.display = "none"; // Cache l'échelle 1
