@@ -51,6 +51,8 @@
     <button class="bouton" id="evaluer1" style="display: none;">Évaluer</button>
     <div id="echelle2" style="display: none;"></div>
     <button class="bouton" id="evaluer2" style="display: none;">Évaluer</button>
+    <div id="echelle3" style="display: none;"></div>
+    <button class="bouton" id="evaluer3" style="display: none;">Évaluer</button>
     <div id="chronometre">00:00</div>
 
     <script>
@@ -72,7 +74,7 @@
                 radio.name = idEchelle;
                 radio.value = i;
                 radio.addEventListener("click", function() {
-                    if(idEchelle == "echelle1"){idBouton = "evaluer1"}else{idBouton = "evaluer2"};
+                    if(idEchelle == "echelle1"){idBouton = "evaluer1"}else if (idEchelle == "echelle2"){idBouton = "evaluer2"}else{idBouton = "evaluer3"};
                     verifierEchelle(idEchelle, idBouton);
                 });
                 divEchelle.appendChild(radio);
@@ -115,10 +117,12 @@
                 document.getElementById("texteEchelle").style.display = "none"; // Cache le texte de l'échelle
                 document.getElementById("echelle1").style.display = "none"; // Cache l'échelle 1
                 document.getElementById("echelle2").style.display = "none"; // Cache l'échelle 2
+                document.getElementById("echelle3").style.display = "none"; // Cache l'échelle 2
                 document.getElementById("reponse").style.display = "block"; // Affiche la réponse
                 document.getElementById("envoyer").style.display = "block"; // Affiche le bouton d'envoi
                 document.getElementById("evaluer1").style.display = "none"; // Cache le bouton d'évaluation 1
                 document.getElementById("evaluer2").style.display = "none"; // Cache le bouton d'évaluation 2
+                document.getElementById("evaluer3").style.display = "none"; // Cache le bouton d'évaluation 2
                 document.getElementById("compteur").style.display = "block"; // Affiche le compteur de mots
                 document.getElementById("reponse").value = ""; // Nettoie la réponse
                 document.getElementById("chronometre").style.display = "block"; // Affiche le chronometre
@@ -141,6 +145,8 @@
             document.getElementById("echelle1").style.display = "block"; // Affiche l'échelle 1
             document.getElementById("envoyer").style.display = "none"; // Cache le bouton d'envoi
             document.getElementById("evaluer1").style.display = "block"; // Affiche le bouton d'évaluation 1
+            document.getElementById("question").innerText = "Veuillez indiquer de 1 à 5. 1 = fortement en désaccord et 5 = fortement en accord";
+            document.getElementById("texteEchelle").innerText = "J'ai confiance en la réponse que j'ai offerte à la question présentée.";
             document.getElementById("compteur").style.display = "none"; // Cache le compteur de mots
             reinitialiserEchelle("echelle1","evaluer1"); // Réinitialise l'échelle 1
             document.getElementById("chronometre").style.display = "none"; // Cache le chronometre
@@ -165,6 +171,7 @@
             document.getElementById("echelle1").style.display = "none"; // Cache l'échelle 1
             document.getElementById("echelle2").style.display = "block"; // Affiche l'échelle 2
             document.getElementById("evaluer1").style.display = "none"; // Cache le bouton d'évaluation 1
+            document.getElementById("texteEchelle").innerText = "J’ai utilisé des informations issues de sources numériques pour répondre à la question présentée.";
             document.getElementById("evaluer2").style.display = "block"; // Affiche le bouton d'évaluation 2
             reinitialiserEchelle("echelle2","evaluer2"); // Réinitialise l'échelle 2
             debut = Date.now(); // Enregistre le début du temps
@@ -172,9 +179,22 @@
         }
 
         function evaluer2() {
-            let echelle = document.querySelector('input[name="echelle2"]:checked').value;
-            verifierEchelle("echelle2", "evaluer2");
-            reponses[reponses.length - 1].echelle2 = echelle; // Enregistre l'échelle 2 de la dernière réponse
+            let echelle = document.querySelector('input[name="echelle1"]:checked').value;
+            reponses[reponses.length - 1].echelle2 = echelle; // Enregistre l'échelle 1 de la dernière réponse
+            document.getElementById("echelle2").style.display = "none"; // Cache l'échelle 1
+            document.getElementById("echelle3").style.display = "block"; // Affiche l'échelle 2
+            document.getElementById("evaluer2").style.display = "none"; // Cache le bouton d'évaluation 1
+            document.getElementById("texteEchelle").innerText = "J’ai confiance en la source numérique que j’ai utilisée pour répondre à la question.";
+            document.getElementById("evaluer3").style.display = "block"; // Affiche le bouton d'évaluation 2
+            reinitialiserEchelle("echelle3","evaluer3"); // Réinitialise l'échelle 2
+            debut = Date.now(); // Enregistre le début du temps
+            intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
+        }
+
+        function evaluer3() {
+            let echelle = document.querySelector('input[name="echelle3"]:checked').value;
+            verifierEchelle("echelle3", "evaluer3");
+            reponses[reponses.length - 1].echelle3 = echelle; // Enregistre l'échelle 2 de la dernière réponse
             afficherQuestion();
         }
 
@@ -212,11 +232,14 @@
         }
         verifierEchelle("echelle1", "evaluer1");
         verifierEchelle("echelle2", "evaluer2");
+        verifierEchelle("echelle3", "evaluer3");
         document.getElementById("envoyer").addEventListener("click", repondre);
         document.getElementById("evaluer1").addEventListener("click", evaluer1);
         document.getElementById("evaluer2").addEventListener("click", evaluer2);
+        document.getElementById("evaluer3").addEventListener("click", evaluer3);
         creerEchelle("echelle1");
         creerEchelle("echelle2");
+        creerEchelle("echelle3");
         afficherQuestion();
     </script>
 </body>
