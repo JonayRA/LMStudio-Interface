@@ -76,11 +76,15 @@
             }
         }
 
-        function reinitialiserEchelle(idEchelle) {
+        function reinitialiserEchelle(idEchelle,idBouton) {
             let inputsEchelle = document.querySelectorAll('input[name="' + idEchelle + '"]');
             for (let i = 0; i < inputsEchelle.length; i++) {
                 inputsEchelle[i].checked = false;
             }
+            let bouton = document.getElementById(idBouton);
+            bouton.disabled = true;
+            bouton.style.backgroundColor = "#ccc";
+
         }
 
         function afficherQuestion() {
@@ -116,7 +120,7 @@
             document.getElementById("envoyer").style.display = "none"; // Cache le bouton d'envoi
             document.getElementById("evaluer1").style.display = "block"; // Affiche le bouton d'évaluation 1
             document.getElementById("compteur").style.display = "none"; // Cache le compteur de mots
-            reinitialiserEchelle("echelle1"); // Réinitialise l'échelle 1
+            reinitialiserEchelle("echelle1","evaluer1"); // Réinitialise l'échelle 1
             document.getElementById("chronometre").style.display = "none"; // Cache le chronometre
             clearInterval(intervalId); // Arrête le chronomètre
         }
@@ -140,7 +144,7 @@
             document.getElementById("echelle2").style.display = "block"; // Affiche l'échelle 2
             document.getElementById("evaluer1").style.display = "none"; // Cache le bouton d'évaluation 1
             document.getElementById("evaluer2").style.display = "block"; // Affiche le bouton d'évaluation 2
-            reinitialiserEchelle("echelle2"); // Réinitialise l'échelle 2
+            reinitialiserEchelle("echelle2","evaluer2"); // Réinitialise l'échelle 2
             debut = Date.now(); // Enregistre le début du temps
             intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
         }
