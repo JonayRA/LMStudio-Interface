@@ -99,7 +99,7 @@
         }
 
         function afficherQuestion() {
-            if (questions.length > 0) {
+            if (questions.length > (50-15)) {
                 //let question = questions.shift(); // Obtient la question suivante
                 let question = obtenirQuestionAleatoire();
                 document.getElementById("question").innerText = question;
