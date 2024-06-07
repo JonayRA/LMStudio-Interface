@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Questionnaire</title>
+    <style>
+        .question {
+            margin-bottom: 20px;
+        }
+        .echelle {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            margin-left: 50px;
+            margin-right: 150px;
+        }
+        .echelle input[type="radio"] {
+            display: none;
+        }
+        .echelle label {
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+            background-color: #ccc;
+            display: inline-block;
+        }
+        .echelle input[type="radio"]:checked + label {
+            background-color: #007BFF;
+        }
+        .echelle .numero {
+            text-align: center;
+        }
+        .bouton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="questionnaire">
+        <!-- Repite este bloque para cada pregunta -->
+        <div class="question">
+            <p>Question 1</p>
+            <div class="echelle">
+                <div>
+                    <input type="radio" id="q1-1" name="q1" value="1"><label for="q1-1"></label>
+                    <div class="numero">1</div>
+                </div>
+                <div>
+                    <input type="radio" id="q1-2" name="q1" value="2"><label for="q1-2"></label>
+                    <div class="numero">2</div>
+                </div>
+                <div>
+                    <input type="radio" id="q1-3" name="q1" value="3"><label for="q1-3"></label>
+                    <div class="numero">3</div>
+                </div>
+                <div>
+                    <input type="radio" id="q1-4" name="q1" value="4"><label for="q1-4"></label>
+                    <div class="numero">4</div>
+                </div>
+                <div>
+                    <input type="radio" id="q1-5" name="q1" value="5"><label for="q1-5"></label>
+                    <div class="numero">5</div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin del bloque a repetir -->
+        <button type="submit" class="bouton" id="envoyer">Envoyer</button>
+    </form>
+
+    <script>
+        // Genera 20 preguntas
+        for (let i = 2; i <= 20; i++) {
+            let questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = '<p>Question ' + i + '</p>' +
+                '<div class="echelle">' +
+                '<div><input type="radio" id="q' + i + '-1" name="q' + i + '" value="1"><label for="q' + i + '-1"></label><div class="numero">1</div></div>' +
+                '<div><input type="radio" id="q' + i + '-2" name="q' + i + '" value="2"><label for="q' + i + '-2"></label><div class="numero">2</div></div>' +
+                '<div><input type="radio" id="q' + i + '-3" name="q' + i + '" value="3"><label for="q' + i + '-3"></label><div class="numero">3</div></div>' +
+                '<div><input type="radio" id="q' + i + '-4" name="q' + i + '" value="4"><label for="q' + i + '-4"></label><div class="numero">4</div></div>' +
+                '<div><input type="radio" id="q' + i + '-5" name="q' + i + '" value="5"><label for="q' + i + '-5"></label><div class="numero">5</div></div>' +
+                '</div>';
+            document.getElementById('questionnaire').insertBefore(questionDiv, document.getElementById('envoyer'));
+        }
+
+        document.getElementById('questionnaire').addEventListener('change', function() {
+            let questions = document.querySelectorAll('.question');
+            let toutesRepondues = Array.from(questions).every(function(question) {
+                return question.querySelector('input[type="radio"]:checked');
+            });
+            document.getElementById('envoyer').style.display = toutesRepondues ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

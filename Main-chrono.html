@@ -41,6 +41,9 @@
         #evaluerConnaissance{
             margin-top: 20px;
         }
+        .echelle input[type="radio"]:checked + label {
+            background-color: #007BFF;
+        }
 
     </style>
 </head>
@@ -50,11 +53,11 @@
     <div id="compteur"></div>
     <button class="bouton" id="envoyer">Envoyer</button>
     <div id="texteEchelle" style="display: none;">Veuillez évaluer votre réponse :</div>
-    <div id="echelle1" style="display: none;"></div>
+    <div class = "echelle" id="echelle1" style="display: none;"></div>
     <button class="bouton" id="evaluer1" style="display: none;">Évaluer</button>
-    <div id="echelle2" style="display: none;"></div>
+    <div class = "echelle" id="echelle2" style="display: none;"></div>
     <button class="bouton" id="evaluer2" style="display: none;">Évaluer</button>
-    <div id="echelle3" style="display: none;"></div>
+    <div class = "echelle" id="echelle3" style="display: none;"></div>
     <button class="bouton" id="evaluer3" style="display: none;">Évaluer</button>
     <div id="chronometre">00:00</div>
     <div id="connaissance" style="display: none;">
@@ -75,20 +78,26 @@
         let maxMots = 200; // Maximum de mots
 
         function creerEchelle(idEchelle) {
-            let divEchelle = document.getElementById(idEchelle);
-            for (let i = minEchelle; i <= maxEchelle; i++) {
-                let radio = document.createElement("input");
-                radio.type = "radio";
-                radio.name = idEchelle;
-                radio.value = i;
-                radio.addEventListener("click", function() {
-                    if(idEchelle == "echelle1"){idBouton = "evaluer1"}else if (idEchelle == "echelle2"){idBouton = "evaluer2"}else{idBouton = "evaluer3"};
-                    verifierEchelle(idEchelle, idBouton);
-                });
-                divEchelle.appendChild(radio);
-                divEchelle.appendChild(document.createTextNode(" " + i + " "));
+                let divEchelle = document.getElementById(idEchelle);
+                for (let i = minEchelle; i <= maxEchelle; i++) {
+                    let optionDiv = document.createElement('div');
+                    optionDiv.style.display = 'inline-block'; // Ajoutez cette ligne
+                    optionDiv.style.textAlign = 'center'; // Ajoutez cette ligne
+                    let radio = document.createElement("input");
+                    radio.type = "radio";
+                    radio.name = idEchelle;
+                    radio.value = i;
+                    radio.addEventListener("click", function() {
+                        if(idEchelle == "echelle1"){idBouton = "evaluer1"}else if (idEchelle == "echelle2"){idBouton = "evaluer2"}else{idBouton = "evaluer3"};
+                        verifierEchelle(idEchelle, idBouton);
+                    });
+                    optionDiv.appendChild(radio);
+                    optionDiv.appendChild(document.createElement('br')); // Ajoutez cette ligne
+                    optionDiv.appendChild(document.createTextNode(i));
+                    divEchelle.appendChild(optionDiv);
+                }
             }
-        }
+
 
         function reinitialiserEchelle(idEchelle,idBouton) {
             let inputsEchelle = document.querySelectorAll('input[name="' + idEchelle + '"]');
