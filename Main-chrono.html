@@ -98,8 +98,17 @@
             return question;
         }
 
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.shiftKey && event.key === "U") {
+                let x = 15; // Cambia esto por el número de preguntas que quieres mantener
+                questions.splice(x); // Esto eliminará todas las preguntas excepto las primeras 'x'
+                console.log(questions.length);
+            }
+            
+        });
+
         function afficherQuestion() {
-            if (questions.length > (50-15)) {
+            if (questions.length > (50-12)) {
                 //let question = questions.shift(); // Obtient la question suivante
                 let question = obtenirQuestionAleatoire();
                 document.getElementById("question").innerText = question;
