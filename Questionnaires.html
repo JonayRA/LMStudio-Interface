@@ -39,6 +39,10 @@
             cursor: pointer;
             display: none;
         }
+        .bouton:disabled {
+            background-color: #ccc; /* change la couleur de fond lorsque le bouton est désactivé */
+            cursor: not-allowed; /* change le curseur lorsque le bouton est désactivé */
+        }
     </style>
 </head>
 <body>
@@ -75,7 +79,10 @@
 
     <script>
         // Genera 20 preguntas
-        for (let i = 2; i <= 20; i++) {
+        let bouton = document.getElementById('envoyer');
+        bouton.disabled = true;
+        document.getElementById('envoyer').style.display = 'block';
+        for (let i = 2; i <= 10; i++) {
             let questionDiv = document.createElement('div');
             questionDiv.className = 'question';
             questionDiv.innerHTML = '<p>Question ' + i + '</p>' +
@@ -89,13 +96,26 @@
             document.getElementById('questionnaire').insertBefore(questionDiv, document.getElementById('envoyer'));
         }
 
+        document.getElementById('envoyer').addEventListener('click', function() {
+            event.preventDefault();
+            window.location.href = 'PresentationTestMemoireSurprise.html';
+
+            let radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(function(radio) {
+                radio.checked = false;
+            });
+        })
+
         document.getElementById('questionnaire').addEventListener('change', function() {
             let questions = document.querySelectorAll('.question');
             let toutesRepondues = Array.from(questions).every(function(question) {
                 return question.querySelector('input[type="radio"]:checked');
             });
-            document.getElementById('envoyer').style.display = toutesRepondues ? 'block' : 'none';
+            //document.getElementById('envoyer').style.display = toutesRepondues ? 'block' : 'none';
+            document.getElementById('envoyer').disabled = toutesRepondues ? false : true;
         });
     </script>
 </body>
 </html>
+
+
