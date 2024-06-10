@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interaction des Questions</title>
+    <style>
+        #reponse {
+            width: 15%;
+            height: 25px;
+            margin-top: 30px;
+        }
+        .bouton {
+            margin-top: 20px;
+            /*margin-left: 68px;*/
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            cursor: pointer;
+        }
+        .bouton:disabled {
+            background-color: #ccc; /* change la couleur de fond lorsque le bouton est désactivé */
+            cursor: not-allowed; /* change le curseur lorsque le bouton est désactivé */
+        }
+        #envoyer {
+            display: block; /* hace que el botón sea un bloque de nivel */
+            text-align: center; /* alinea el botón a la derecha */
+        }
+        .echelle input[type="radio"]:checked + label {
+            background-color: #007BFF;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="question"></div>
+    <input type="text" id="reponse" placeholder="Écrivez votre réponse ici"/>
+    <button class="bouton" id="envoyer">Envoyer</button>
+
+        
+
+    <script>
+        // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
+        let questions = [];
+        for (let i = 1; i <= 50; i++) {
+            questions.push("Question " + i);
+        }
+        let reponses = []; // Pour enregistrer les réponses
+        let minEchelle = 1; // Minimum de l'échelle
+        let maxEchelle = 5; // Maximum de l'échelle
+        let maxMots = 200; // Maximum de mots
+
+        
+
+        function obtenirQuestionAleatoire() {
+            let indiceAleatoire = Math.floor(Math.random() * questions.length);
+            let question = questions[indiceAleatoire];
+            questions.splice(indiceAleatoire, 1); // Supprime la question du tableau pour éviter la répétition
+            return question;
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.shiftKey && event.key === "U") {
+                let x = 15; // Cambia esto por el número de preguntas que quieres mantener
+                questions.splice(x); // Esto eliminará todas las preguntas excepto las primeras 'x'
+                console.log(questions.length);
+            }
+            
+        });
+
+        function afficherQuestion() {
+            if (questions.length > (50-12)) {
+                //let question = questions.shift(); // Obtient la question suivante
+                let question = obtenirQuestionAleatoire();
+                document.getElementById("question").innerText = question;
+                document.getElementById("reponse").style.display = "block"; // Affiche la réponse
+                document.getElementById("envoyer").style.display = "block"; // Affiche le bouton d'envoi
+                document.getElementById("reponse").value = ""; // Nettoie la réponse
+            } else {
+                // Toutes les questions ont été répondues
+                console.log(reponses); // Ici, vous puedes hacer ce que vous voulez avec les réponses
+                clearInterval(intervalId); // Arrête le chronomètre
+                window.location.href = 'Questionnaires.html';
+            }
+        }
+
+        function repondre() {
+            let reponse = document.getElementById("reponse").value.trim();
+            if (reponse.split(' ').length > 1) {
+                alert('Svp veuillez introduire uniquement un mot.');
+                return;
+            }
+            reponses.push({question: document.getElementById("question").innerText, reponse});
+            afficherQuestion();
+        }
+
+        
+        document.getElementById("envoyer").addEventListener("click", repondre);
+        afficherQuestion();
+    </script>
+</body>
+</html>
