@@ -68,6 +68,7 @@
 
     <script>
         // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
+        localStorage.setItem("currentQuestionnaire", 0);
         let questions = [];
         for (let i = 1; i <= 50; i++) {
             questions.push("Question " + i);
@@ -83,6 +84,7 @@
                     let optionDiv = document.createElement('div');
                     optionDiv.style.display = 'inline-block'; // Ajoutez cette ligne
                     optionDiv.style.textAlign = 'center'; // Ajoutez cette ligne
+                    optionDiv.style.margin = '0 10px';
                     let radio = document.createElement("input");
                     radio.type = "radio";
                     radio.name = idEchelle;

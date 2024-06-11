@@ -29,6 +29,9 @@
         .echelle .numero {
             text-align: center;
         }
+        .echelle div {
+        display: inline-block;
+    }
         .bouton {
             margin-top: 20px;
             padding: 10px 20px;
@@ -49,7 +52,7 @@
     <form id="questionnaire">
         <!-- Repite este bloque para cada pregunta -->
         <div class="question">
-            <p>Question 1</p>
+           <!-- <p>Question 1</p>
             <div class="echelle">
                 <div>
                     <input type="radio" id="q1-1" name="q1" value="1"><label for="q1-1"></label>
@@ -71,50 +74,110 @@
                     <input type="radio" id="q1-5" name="q1" value="5"><label for="q1-5"></label>
                     <div class="numero">5</div>
                 </div>
-            </div>
+            </div>-->
         </div>
         <!-- Fin del bloque a repetir -->
         <button type="submit" class="bouton" id="envoyer">Envoyer</button>
     </form>
 
+    <script src="StatementsQuestionnaires.js"></script>
     <script>
-        // Genera 20 preguntas
-        let bouton = document.getElementById('envoyer');
-        bouton.disabled = true;
-        document.getElementById('envoyer').style.display = 'block';
-        for (let i = 2; i <= 10; i++) {
-            let questionDiv = document.createElement('div');
-            questionDiv.className = 'question';
-            questionDiv.innerHTML = '<p>Question ' + i + '</p>' +
-                '<div class="echelle">' +
-                '<div><input type="radio" id="q' + i + '-1" name="q' + i + '" value="1"><label for="q' + i + '-1"></label><div class="numero">1</div></div>' +
-                '<div><input type="radio" id="q' + i + '-2" name="q' + i + '" value="2"><label for="q' + i + '-2"></label><div class="numero">2</div></div>' +
-                '<div><input type="radio" id="q' + i + '-3" name="q' + i + '" value="3"><label for="q' + i + '-3"></label><div class="numero">3</div></div>' +
-                '<div><input type="radio" id="q' + i + '-4" name="q' + i + '" value="4"><label for="q' + i + '-4"></label><div class="numero">4</div></div>' +
-                '<div><input type="radio" id="q' + i + '-5" name="q' + i + '" value="5"><label for="q' + i + '-5"></label><div class="numero">5</div></div>' +
-                '</div>';
-            document.getElementById('questionnaire').insertBefore(questionDiv, document.getElementById('envoyer'));
+    // Genera las preguntas
+    // Supongamos que almacenaste un objeto o un array en 'miVariable'
+    var experience = JSON.parse(localStorage.getItem('experience'));
+    var condition = JSON.parse(localStorage.getItem('condition'));
+    var currentQuestionnaire = JSON.parse(localStorage.getItem('currentQuestionnaire'));
+    let bouton = document.getElementById('envoyer');
+    bouton.disabled = true;
+    document.getElementById('envoyer').style.display = 'block';
+    let cuestionario;
+    if(experience == 1){
+        if(currentQuestionnaire == 0){
+            if (condition == 1){
+                cuestionario = InternetSkills;
+            } else if (condition == 2){
+                cuestionario = ChatGPTLiteracyScale;
+            }
+
+        } else if (currentQuestionnaire == 1){
+            cuestionario = MetacognitiveSkillsInventory;
+        } else if (currentQuestionnaire == 2){
+            cuestionario = StateMetacognitiveInventory;
+        }
+    }
+
+currentQuestionnaire += 1;
+localStorage.setItem("currentQuestionnaire", currentQuestionnaire);
+   // var cuestionario = ChatGPTLiteracyScale;
+for (let i = 0; i < cuestionario.Items.length; i++) {
+    let questionDiv = document.createElement('div');
+    questionDiv.className = 'question';
+    questionDiv.innerHTML = '<p>' + cuestionario.Items[i] + '</p>' +
+        '<div class="echelle">';
+    for (let j = cuestionario.Min.Valeur; j <= cuestionario.Max.Valeur; j++) {
+        let optionDiv = document.createElement('div');
+        optionDiv.style.display = 'inline-block';
+        optionDiv.style.textAlign = 'center';
+        optionDiv.style.margin = '0 10px';
+        let radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "q" + (i+1);  // Asegúrate de que todos los radios de una misma pregunta tengan el mismo nombre
+        radio.value = j;
+        optionDiv.appendChild(radio);
+        optionDiv.appendChild(document.createElement('br'));
+        optionDiv.appendChild(document.createTextNode(j));
+        questionDiv.appendChild(optionDiv);
+    }
+    questionDiv.innerHTML += '</div>';
+    document.getElementById('questionnaire').insertBefore(questionDiv, document.getElementById('envoyer'));
+}
+
+
+    document.getElementById('envoyer').addEventListener('click', function(event) {
+
+        if(currentQuestionnaire == 3){
+        event.preventDefault();
+        window.location.href = 'PresentationTestMemoireSurprise.html';
         }
 
-        document.getElementById('envoyer').addEventListener('click', function() {
-            event.preventDefault();
-            window.location.href = 'PresentationTestMemoireSurprise.html';
-
-            let radios = document.querySelectorAll('input[type="radio"]');
-            radios.forEach(function(radio) {
-                radio.checked = false;
-            });
-        })
-
-        document.getElementById('questionnaire').addEventListener('change', function() {
-            let questions = document.querySelectorAll('.question');
-            let toutesRepondues = Array.from(questions).every(function(question) {
-                return question.querySelector('input[type="radio"]:checked');
-            });
-            //document.getElementById('envoyer').style.display = toutesRepondues ? 'block' : 'none';
-            document.getElementById('envoyer').disabled = toutesRepondues ? false : true;
+        let radios = document.querySelectorAll('input[type="radio"]');
+        radios.forEach(function(radio) {
+            radio.checked = false;
         });
-    </script>
+    })
+
+    /*document.getElementById('questionnaire').addEventListener('change', function() {
+        let questions = document.querySelectorAll('.question');
+        let toutesRepondues = Array.from(questions).every(function(question) {
+            let selectedRadios = document.querySelectorAll('input[type="radio"]:checked');
+            let totalRadios = document.querySelectorAll('input[type="radio"]');
+            // Cuenta cuántos elementos hay seleccionados
+            let count = selectedRadios.length;
+
+            console.log("Número de radios seleccionados: " + count, '/'+totalRadios.length);
+            return question.querySelector('input[type="radio"]:checked');
+        });
+        document.getElementById('envoyer').disabled = toutesRepondues ? false : true;
+    });*/
+
+    document.getElementById('questionnaire').addEventListener('change', function() {
+    // Número total de preguntas
+    let totalQuestions = cuestionario.Items.length;
+
+    // Selecciona todos los elementos input[type="radio"]:checked dentro del cuestionario
+    let selectedRadios = document.querySelectorAll('#questionnaire input[type="radio"]:checked');
+
+    // Cuenta cuántos radios están seleccionados
+    let count = selectedRadios.length;
+
+    console.log("Número de radios seleccionados: " + count, '/' + totalQuestions);
+
+    // Habilitar/deshabilitar el botón de enviar
+    document.getElementById('envoyer').disabled = count === totalQuestions ? false : true;
+        });
+
+</script>
+
 </body>
 </html>
 
