@@ -95,18 +95,25 @@
     bouton.disabled = true;
     document.getElementById('envoyer').style.display = 'block';
     let cuestionario;
-    if(experience == 1){
+    
         if(currentQuestionnaire == 0){
             if (condition == 1){
                 cuestionario = InternetSkills;
             } else if (condition == 2){
                 cuestionario = ChatGPTLiteracyScale;
             }
-
         } else if (currentQuestionnaire == 1){
+            if(experience == 1){
             cuestionario = MetacognitiveSkillsInventory;
+            }else if (experience ==2){
+                cuestionario = NASA_TaskLoadIndex;
+            }
         } else if (currentQuestionnaire == 2){
+            if(experience == 1){
             cuestionario = StateMetacognitiveInventory;
+
+        }else if (experience ==2){
+                // cuestionario = tache operation span
         }
     }
 
@@ -120,7 +127,7 @@ presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affi
 
 
    // var cuestionario = ChatGPTLiteracyScale;
-for (let i = 0; i < cuestionario.Items.length; i++) {
+/*for (let i = 0; i < cuestionario.Items.length; i++) {
     let questionDiv = document.createElement('div');
     questionDiv.className = 'question';
     questionDiv.innerHTML = '<p>' + cuestionario.Items[i] + '</p>' +
@@ -141,7 +148,44 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
     }
     questionDiv.innerHTML += '</div>';
     document.getElementById('questionnaire').insertBefore(questionDiv, document.getElementById('envoyer'));
+}*/
+
+for (let i = 0; i < cuestionario.Items.length; i++) {
+    let questionDiv = document.createElement('div');
+    questionDiv.className = 'question';
+    questionDiv.innerHTML = '<p>' + cuestionario.Items[i] + '</p>' +
+        '<div class="echelle">';
+
+    if (cuestionario.Max.Valeur < 20) {
+        // Si la longitud es menor que 20, usar radios
+        for (let j = cuestionario.Min.Valeur; j <= cuestionario.Max.Valeur; j++) {
+            let optionDiv = document.createElement('div');
+            optionDiv.style.display = 'inline-block';
+            optionDiv.style.textAlign = 'center';
+            optionDiv.style.margin = '0 10px';
+            let radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "q" + (i+1);  // Asegúrate de que todos los radios de una misma pregunta tengan el mismo nombre
+            radio.value = j;
+            optionDiv.appendChild(radio);
+            optionDiv.appendChild(document.createElement('br'));
+            optionDiv.appendChild(document.createTextNode(j));
+            questionDiv.appendChild(optionDiv);
+        }
+    } else {
+        // Si la longitud es mayor que 20, usar input numérico
+        let inputNum = document.createElement("input");
+        inputNum.type = "number";
+        inputNum.name = "q" + (i+1);  // Asegúrate de que todos los inputs numéricos de una misma pregunta tengan el mismo nombre
+        inputNum.min = cuestionario.Min.Valeur;
+        inputNum.max = cuestionario.Max.Valeur;
+        questionDiv.appendChild(inputNum);
+    }
+    
+    questionDiv.innerHTML += '</div>';
+    document.getElementById('questionnaire').insertBefore(questionDiv, document.getElementById('envoyer'));
 }
+
 
 
     document.getElementById('envoyer').addEventListener('click', function(event) {
