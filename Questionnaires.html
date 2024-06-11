@@ -49,6 +49,9 @@
     </style>
 </head>
 <body>
+    <div>
+            <div id="PresentationQuestionnaire">Présentation questionnaire</div>
+    </div>
     <form id="questionnaire">
         <!-- Repite este bloque para cada pregunta -->
         <div class="question">
@@ -106,8 +109,15 @@
         }
     }
 
-currentQuestionnaire += 1;
-localStorage.setItem("currentQuestionnaire", currentQuestionnaire);
+
+
+// Selecciona el elemento con id "PresentationQuestionnaire"
+let presentationDiv = document.getElementById('PresentationQuestionnaire');
+
+// Cambia el texto del elemento
+presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affirmations suivantes.' + `${cuestionario.Min.Valeur} = ${cuestionario.Min.Statement} et ${cuestionario.Max.Valeur} = ${cuestionario.Max.Statement}`;
+
+
    // var cuestionario = ChatGPTLiteracyScale;
 for (let i = 0; i < cuestionario.Items.length; i++) {
     let questionDiv = document.createElement('div');
@@ -134,7 +144,8 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
 
 
     document.getElementById('envoyer').addEventListener('click', function(event) {
-
+        currentQuestionnaire += 1;
+        localStorage.setItem("currentQuestionnaire", currentQuestionnaire);
         if(currentQuestionnaire == 3){
         event.preventDefault();
         window.location.href = 'PresentationTestMemoireSurprise.html';
@@ -174,7 +185,7 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
 
     // Habilitar/deshabilitar el botón de enviar
     document.getElementById('envoyer').disabled = count === totalQuestions ? false : true;
-        });
+    });
 
 </script>
 
