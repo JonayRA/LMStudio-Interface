@@ -216,7 +216,7 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
         document.getElementById('envoyer').disabled = toutesRepondues ? false : true;
     });*/
 
-    document.getElementById('questionnaire').addEventListener('change', function() {
+    /*document.getElementById('questionnaire').addEventListener('change', function() {
     // Número total de preguntas
     let totalQuestions = cuestionario.Items.length;
 
@@ -230,7 +230,30 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
 
     // Habilitar/deshabilitar el botón de enviar
     document.getElementById('envoyer').disabled = count === totalQuestions ? false : true;
-    });
+
+
+
+    });*/
+
+    document.getElementById('questionnaire').addEventListener('change', function() {
+    // Número total de preguntas
+    let totalQuestions = cuestionario.Items.length;
+
+    // Selecciona todos los elementos input[type="radio"]:checked y input[type="number"] dentro del cuestionario
+    let selectedRadios = document.querySelectorAll('#questionnaire input[type="radio"]:checked');
+    let selectedNumbers = document.querySelectorAll('#questionnaire input[type="number"]');
+
+    // Cuenta cuántos radios y números están seleccionados
+    let count = selectedRadios.length + Array.from(selectedNumbers).filter(input => input.value !== "").length;
+
+    console.log("Número de elementos seleccionados: " + count, '/' + totalQuestions);
+
+    // Habilitar/deshabilitar el botón de enviar
+    document.getElementById('envoyer').disabled = count === totalQuestions ? false : true;
+});
+
+
+    
 
 </script>
 
