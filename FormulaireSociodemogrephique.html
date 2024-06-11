@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Expérience LLM</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        #enlaceBoton {
+            margin-top: 20px;
+            margin-left: 94px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label for="sexe">Sexe:</label>
+        <select id="sexe" name="sexe">
+            <option value="" selected>Veuillez choisir</option>
+            <option value="homme">Homme</option>
+            <option value="femme">Femme</option>
+            <option value="autre">Autre</option>
+            <option value="preferePasDire">Préférez ne pas dire</option>
+        </select><br><br>
+
+        <label for="genre">Genre:</label>
+        <select id="genre" name="genre">
+            <option value="" selected>Veuillez choisir</option>
+            <option value="masculin">Masculin</option>
+            <option value="feminin">Féminin</option>
+            <option value="nonBinaire">Non binaire</option>
+            <option value="autre">Autre</option>
+            <option value="preferePasDire">Préférez ne pas dire</option>
+        </select><br><br>
+
+        <label for="age">Âge:</label>
+        <input type="number" id="age" name="age"><br><br>
+
+        <label for="niveauScolarite">Dernier niveau de scolarité complété:</label>
+        <select id="niveauScolarite" name="niveauScolarite">
+            <option value="" selected>Veuillez choisir</option>
+            <option value="secondaire">Secondaire</option>
+            <option value="cegep">Cégep</option>
+            <option value="premierCycle">Premier cycle</option>
+            <option value="deuxiemeCycle">Deuxième cycle</option>
+            <option value="troisiemeCycle">Troisième cycle</option>
+        </select><br><br>
+
+        <label for="niveauFrancais">Niveau de maîtrise du français (1 à 10):</label>
+        <input type="number" id="niveauFrancais" name="niveauFrancais" min="1" max="10"><br><br>
+
+        
+        <button type="button" id="enlaceBoton">Débuter l'expérience</button>
+    </form>
+
+    <script>
+        const enlaceBoton = document.getElementById('enlaceBoton');
+        const consentement = document.getElementById('consentement');
+
+        enlaceBoton.addEventListener('click', function() {
+            
+                const sexe = document.getElementById('sexe').value;
+                const genre = document.getElementById('genre').value;
+                const age = document.getElementById('age').value;
+                const niveauScolarite = document.getElementById('niveauScolarite').value;
+                const niveauFrancais = document.getElementById('niveauFrancais').value;
+
+                if (!sexe || !genre || !age || !niveauScolarite || !niveauFrancais) {
+                    alert("Veuillez remplir tous les champs.");
+                    return;
+                }
+
+                localStorage.setItem("sexe", sexe);
+                localStorage.setItem("genre", genre);
+                localStorage.setItem("age", age);
+                localStorage.setItem("niveauScolarite", niveauScolarite);
+                localStorage.setItem("niveauFrancais", niveauFrancais);
+
+                window.location.href = "Bienvenue.html?sexe=" + encodeURIComponent(sexe) + 
+                                       "&genre=" + encodeURIComponent(genre) + 
+                                       "&age=" + encodeURIComponent(age) + 
+                                       "&niveauScolarite=" + encodeURIComponent(niveauScolarite) + 
+                                       "&niveauFrancais=" + encodeURIComponent(niveauFrancais);
+            
+        });
+    </script>
+</body>
+</html>

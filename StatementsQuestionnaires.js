@@ -114,3 +114,16 @@ var StateMetacognitiveInventory = {
         "Je tentais de comprendre les questions avant d’y répondre."
     ]
 }
+
+var NASA_TaskLoadIndex = {
+    Min: {Valeur: 1, Statement: "faible"},
+    Max: {Valeur: 100, Statement: "forte"},
+    Items: [
+        "EXIGENCE MENTALE : Dans quelle mesure des opérations mentales et perceptives ont-elles été requises (p. ex. : penser, décider, calculer, se rappeler, regarder, chercher, etc.) ?",
+        "EXIGENCE PHYSIQUE : Dans quelle mesure des opérations physiques ont-elles été requises (p. ex. : pousser, tirer, tourner, superviser, activer, etc.) ?",
+        "EXIGENCE TEMPORELLE : Quelle était la pression temporelle que vous avez ressentie, que ce soit à cause de la cadence ou de l’allure des tâches ou de l’apparition des éléments de la tâche ?",
+        "EFFORT : Quelle a été la difficulté d’accomplir (mentalement et physiquement) la tâche avec un niveau de performance tel que le vôtre ?",
+        "PERFORMANCE : Quelle réussite vous attribuez-vous en ce qui concerne l’atteinte des buts de la tâche fixés par l’expérimentatrice (ou par vous-même) ?",
+        "FRUSTRATION : Au cours de la tâche, quel sentiment de manque d'assurance, de découragement, d'irritabilité, de stress ou d'agacement avez-vous ressenti contrairement au fait d’être certain.e, satisfait.e, content.e, détendu.e et complaisant.e ?"
+    ]
+}
