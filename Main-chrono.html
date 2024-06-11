@@ -44,6 +44,9 @@
         .echelle input[type="radio"]:checked + label {
             background-color: #007BFF;
         }
+        #echelle4{
+            margin-top: 10px;
+        }
 
     </style>
 </head>
@@ -60,11 +63,13 @@
     <div class = "echelle" id="echelle3" style="display: none;"></div>
     <button class="bouton" id="evaluer3" style="display: none;">Évaluer</button>
     <div id="chronometre">00:00</div>
-    <div id="connaissance" style="display: none;">
+    <!--<div id="connaissance" style="display: none;">
 
         <input type="number" id="niveauConnaissance" min="0" max="100">
     </div>
-    <button class="bouton" id="evaluerConnaissance" style="display: none;">Évaluer</button>
+    <button class="bouton" id="evaluerConnaissance" style="display: none;">Évaluer</button>-->
+    <div class = "echelle" id="echelle4" style="display: none;"></div>
+    <button class="bouton" id="evaluer4" style="display: none;">Évaluer</button>
 
     <script>
         // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
@@ -75,10 +80,10 @@
         }
         let reponses = []; // Pour enregistrer les réponses
         let minEchelle = 1; // Minimum de l'échelle
-        let maxEchelle = 5; // Maximum de l'échelle
+        // let maxEchelle = 5; // Maximum de l'échelle
         let maxMots = 200; // Maximum de mots
 
-        function creerEchelle(idEchelle) {
+        function creerEchelle(idEchelle, maxEchelle) {
                 let divEchelle = document.getElementById(idEchelle);
                 for (let i = minEchelle; i <= maxEchelle; i++) {
                     let optionDiv = document.createElement('div');
@@ -90,7 +95,7 @@
                     radio.name = idEchelle;
                     radio.value = i;
                     radio.addEventListener("click", function() {
-                        if(idEchelle == "echelle1"){idBouton = "evaluer1"}else if (idEchelle == "echelle2"){idBouton = "evaluer2"}else{idBouton = "evaluer3"};
+                        if(idEchelle == "echelle1"){idBouton = "evaluer1"}else if (idEchelle == "echelle2"){idBouton = "evaluer2"}else if (idEchelle == "echelle3") {idBouton = "evaluer3"}else {idBouton = "evaluer4"};
                         verifierEchelle(idEchelle, idBouton);
                     });
                     optionDiv.appendChild(radio);
@@ -137,6 +142,7 @@
                 document.getElementById("echelle1").style.display = "none"; // Cache l'échelle 1
                 document.getElementById("echelle2").style.display = "none"; // Cache l'échelle 2
                 document.getElementById("echelle3").style.display = "none"; // Cache l'échelle 2
+                document.getElementById("echelle4").style.display = "none"; // Cache l'échelle 2
                 document.getElementById("reponse").style.display = "block"; // Affiche la réponse
                 document.getElementById("envoyer").style.display = "block"; // Affiche le bouton d'envoi
                 document.getElementById("evaluer1").style.display = "none"; // Cache le bouton d'évaluation 1
@@ -145,8 +151,8 @@
                 document.getElementById("compteur").style.display = "block"; // Affiche le compteur de mots
                 document.getElementById("reponse").value = ""; // Nettoie la réponse
                 document.getElementById("chronometre").style.display = "block"; // Affiche le chronometre
-                document.getElementById("connaissance").style.display = "none"; // Affiche la question de connaissance
-                document.getElementById("evaluerConnaissance").style.display = "none"; // Affiche le bouton d'évaluation de connaissance
+                //document.getElementById("connaissance").style.display = "none"; // Affiche la question de connaissance
+                //document.getElementById("evaluerConnaissance").style.display = "none"; // Affiche le bouton d'évaluation de connaissance
                 compterMots(); // Met à jour le compteur de mots
                 debut = Date.now(); // Enregistre le début du temps
                 intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
@@ -221,9 +227,21 @@
             document.getElementById("echelle3").style.display = "none"; // Cache l'échelle 1
             document.getElementById("evaluer3").style.display = "none";
             document.getElementById("question").innerText = "";
-            document.getElementById("texteEchelle").innerText = "Sur une échelle de 0 à 100, j’estime ma connaissance initiale par rapport au sujet de la question au niveau suivant.";
-            document.getElementById("connaissance").style.display = "block"; // Affiche la question de connaissance
-            document.getElementById("evaluerConnaissance").style.display = "block"; // Affiche le bouton d'évaluation de connaissance
+            /*document.getElementById("texteEchelle").innerText = "Sur une échelle de 0 à 100, j’estime ma connaissance initiale par rapport au sujet de la question au niveau suivant.";*/
+            document.getElementById("texteEchelle").innerText = "Sur une échelle de 0 à 10, j’estime ma connaissance initiale par rapport au sujet de la question au niveau suivant.";
+            document.getElementById("echelle4").style.display = "block"; // Affiche l'échelle 2
+            document.getElementById("evaluer4").style.display = "block";
+            reinitialiserEchelle("echelle4","evaluer4");
+            //document.getElementById("connaissance").style.display = "block"; // Affiche la question de connaissance
+            //document.getElementById("evaluerConnaissance").style.display = "block"; // Affiche le bouton d'évaluation de connaissance
+        }
+
+        function evaluer4(){
+            let echelle = document.querySelector('input[name="echelle4"]:checked').value;
+            verifierEchelle("echelle4", "evaluer4");
+            reponses[reponses.length - 1].echelle4 = echelle;
+            localStorage.setItem("reponses", reponses);
+            afficherQuestion();
         }
 
         function evaluerConnaissance(){
@@ -272,10 +290,12 @@
         document.getElementById("evaluer1").addEventListener("click", evaluer1);
         document.getElementById("evaluer2").addEventListener("click", evaluer2);
         document.getElementById("evaluer3").addEventListener("click", evaluer3);
-        document.getElementById("evaluerConnaissance").addEventListener("click",evaluerConnaissance);
-        creerEchelle("echelle1");
-        creerEchelle("echelle2");
-        creerEchelle("echelle3");
+        document.getElementById("evaluer4").addEventListener("click", evaluer4);
+        //document.getElementById("evaluerConnaissance").addEventListener("click",evaluerConnaissance);
+        creerEchelle("echelle1",5);
+        creerEchelle("echelle2",5);
+        creerEchelle("echelle3",5);
+        creerEchelle("echelle4",10);
         afficherQuestion();
     </script>
 </body>
