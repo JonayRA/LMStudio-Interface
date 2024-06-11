@@ -151,11 +151,11 @@
             document.getElementById("chronometre").innerText = (minutes < 10 ? "0" : "") + minutes + ":" + (secondes < 10 ? "0" : "") + secondes;
 
             // Change la couleur du chronomètre en fonction du temps écoulé
-            if (secondes < 30) {
+            if (secondes < 30 && secondes >= 1) {
                 document.getElementById("chronometre").style.backgroundColor = "green";
-            } else if (secondes < 45) {
+            } else if (secondes < 45 && secondes >= 1) {
                 document.getElementById("chronometre").style.backgroundColor = "yellow";
-            } else if (secondes < 55) {
+            } else if (secondes < 55 && secondes >= 1) {
                 document.getElementById("chronometre").style.backgroundColor = "orange";
             } else {
                 document.getElementById("chronometre").style.backgroundColor = "red";
