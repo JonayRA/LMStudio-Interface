@@ -32,7 +32,7 @@
             cursor: not-allowed; /* change le curseur lorsque le bouton est désactivé */
         }
         #compteur {
-            text-align: right; /* alinea el texto a la derecha */
+            text-align: left; /* alinea el texto a la derecha */
         }
         #envoyer {
             display: block; /* hace que el botón sea un bloque de nivel */
@@ -255,11 +255,11 @@
             document.getElementById("chronometre").innerText = (minutes < 10 ? "0" : "") + minutes + ":" + (secondes < 10 ? "0" : "") + secondes;
 
             // Change la couleur du chronomètre en fonction du temps écoulé
-            if (minutes < 2) {
+            if (minutes < 3) {
                 document.getElementById("chronometre").style.backgroundColor = "green";
-            } else if (minutes < 4) {
-                document.getElementById("chronometre").style.backgroundColor = "yellow";
             } else if (minutes < 5) {
+                document.getElementById("chronometre").style.backgroundColor = "yellow";
+            } else if (minutes < 7) {
                 document.getElementById("chronometre").style.backgroundColor = "orange";
             } else {
                 document.getElementById("chronometre").style.backgroundColor = "red";

@@ -86,12 +86,39 @@
         function repondre() {
             let reponse = document.getElementById("reponse").value.trim();
             if (reponse.split(' ').length > 10) {
-                alert('Svp veuillez introduire uniquement un mot.');
+                alert('Svp veuillez introduire moins de 10 mots.');
                 return;
             }
             reponses.push({question: document.getElementById("question").innerText, reponse});
             afficherQuestion();
         }
+        const reponseInput = document.getElementById('reponse');
+
+        // Añade un event listener para el evento paste
+        reponseInput.addEventListener('paste', function(event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                alert('Svp, veuillez rester dans cette fenêtre.');
+                document.title = '¡Retournez à cette fenêtre!';
+            } else {
+                document.title = 'Page principale';
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            // Deshabilitar Alt+Tab, Ctrl+T, etc.
+            if (event.altKey || (event.ctrlKey && event.key === 'Tab')) {
+                event.preventDefault();
+                alert('Svp, veuillez rester dans cette fenêtre.');
+            }
+        });
+
+
+
+
 
         
         document.getElementById("envoyer").addEventListener("click", repondre);
