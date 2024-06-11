@@ -31,12 +31,23 @@
             background-color: #007BFF;
         }
 
+        #chronometre {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            border: 3px solid black;
+            border-radius: 5px;
+            /*background-color: black;*/
+        }
+
     </style>
 </head>
 <body>
     <div id="question"></div>
     <input type="text" id="reponse" placeholder="Écrivez votre réponse ici"/>
     <button class="bouton" id="envoyer">Envoyer</button>
+    <div id="chronometre">00:00</div>
 
         
 
@@ -77,6 +88,21 @@
                 document.getElementById("reponse").style.display = "block"; // Affiche la réponse
                 document.getElementById("envoyer").style.display = "block"; // Affiche le bouton d'envoi
                 document.getElementById("reponse").value = ""; // Nettoie la réponse
+                debut = Date.now(); // Enregistre le début du temps
+                intervalId = setInterval(majChronometre, 1000);
+
+                setTimeout(() => {
+                    let tiempoTranscurrido = Math.floor((Date.now() - debut) / 1000);
+                    if (tiempoTranscurrido >= 60) {
+                        clearInterval(intervalId);
+                        alert("Il s'est écoulé plus d'une minute. Veuillez cliquer sur 'OK' pour continuer.");
+                        reponses.push({ question: question, reponse: "TimeOut" });
+                        afficherQuestion();
+                    }
+                }, 61000);
+
+
+
             } else {
                 // Toutes les questions ont été répondues
                 console.log(reponses); // Ici, vous puedes hacer ce que vous voulez avec les réponses
@@ -91,7 +117,9 @@
                 return;
             }
             reponses.push({question: document.getElementById("question").innerText, reponse});
+            clearInterval(intervalId);
             afficherQuestion();
+
         }
         const reponseInput = document.getElementById('reponse');
 
@@ -116,6 +144,23 @@
                 alert('Svp, veuillez rester dans cette fenêtre.');
             }
         });
+        function majChronometre() {
+            let secondes = Math.floor((Date.now() - debut) / 1000);
+            let minutes = Math.floor(secondes / 60);
+            secondes %= 60;
+            document.getElementById("chronometre").innerText = (minutes < 10 ? "0" : "") + minutes + ":" + (secondes < 10 ? "0" : "") + secondes;
+
+            // Change la couleur du chronomètre en fonction du temps écoulé
+            if (secondes < 30) {
+                document.getElementById("chronometre").style.backgroundColor = "green";
+            } else if (secondes < 45) {
+                document.getElementById("chronometre").style.backgroundColor = "yellow";
+            } else if (secondes < 55) {
+                document.getElementById("chronometre").style.backgroundColor = "orange";
+            } else {
+                document.getElementById("chronometre").style.backgroundColor = "red";
+            }
+        }
 
 
 
