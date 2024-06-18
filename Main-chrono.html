@@ -90,6 +90,9 @@
         const experience = JSON.parse(localStorage.getItem('experience'));
         function creerEchelle(idEchelle, maxEchelle) {
                 let divEchelle = document.getElementById(idEchelle);
+
+
+
                 for (let i = minEchelle; i <= maxEchelle; i++) {
                     let optionDiv = document.createElement('div');
                     optionDiv.style.display = 'inline-block'; // Ajoutez cette ligne
@@ -108,6 +111,23 @@
                     optionDiv.appendChild(document.createTextNode(i));
                     divEchelle.appendChild(optionDiv);
                 }
+
+                let optionDiv = document.createElement('div');
+                optionDiv.style.display = 'inline-block'; // Ajoutez cette ligne
+                optionDiv.style.textAlign = 'center'; // Ajoutez cette ligne
+                optionDiv.style.margin = '0 10px';
+                let radioNoAplica = document.createElement("input");
+                radioNoAplica.type = "radio";
+                radioNoAplica.name = idEchelle;
+                radioNoAplica.value = "N/A"; 
+                radioNoAplica.addEventListener("click", function() {
+                    if(idEchelle == "echelle1"){idBouton = "evaluer1"}else if (idEchelle == "echelle2"){idBouton = "evaluer2"}else if (idEchelle == "echelle3") {idBouton = "evaluer3"}else {idBouton = "evaluer4"};
+                        verifierEchelle(idEchelle, idBouton);
+                });
+                optionDiv.appendChild(radioNoAplica);
+                optionDiv.appendChild(document.createElement('br'));
+                optionDiv.appendChild(document.createTextNode("Ne s'applique pas"));
+                divEchelle.appendChild(optionDiv);
             }
 
 
@@ -301,8 +321,10 @@
                 document.getElementById("chronometre").style.backgroundColor = "yellow";
             } else if (minutes < 7) {
                 document.getElementById("chronometre").style.backgroundColor = "orange";
-            } else {
+            } else if (minutes < 10) {
                 document.getElementById("chronometre").style.backgroundColor = "red";
+            } else {
+                repondre();
             }
         }
         verifierEchelle("echelle1", "evaluer1");
