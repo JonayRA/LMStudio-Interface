@@ -193,7 +193,8 @@
 
         function repondre() {
             let reponse = document.getElementById("reponse").value;
-            reponses.push({question: document.getElementById("question").innerText, reponse});
+            reponses.push({question:{ "text": document.getElementById("question").innerText,"response": reponse}});
+            reponses[reponses.length - 1].question.tempsReponse = Date.now()-debut;
             document.getElementById("reponse").style.display = "none"; // Cache la réponse
             document.getElementById("texteEchelle").style.display = "block"; // Affiche le texte de l'échelle
             document.getElementById("echelle1").style.display = "block"; // Affiche l'échelle 1
@@ -225,7 +226,8 @@
 
         function evaluer1() {
             let echelle = document.querySelector('input[name="echelle1"]:checked').value;
-            reponses[reponses.length - 1].echelle1 = echelle; // Enregistre l'échelle 1 de la dernière réponse
+            reponses[reponses.length - 1].echelle1 = {"text": document.getElementById("texteEchelle").innerText};
+            reponses[reponses.length - 1].echelle1.valeur = echelle; // Enregistre l'échelle 1 de la dernière réponse
             document.getElementById("echelle1").style.display = "none"; // Cache l'échelle 1
             document.getElementById("echelle2").style.display = "block"; // Affiche l'échelle 2
             document.getElementById("evaluer1").style.display = "none"; // Cache le bouton d'évaluation 1
@@ -242,7 +244,8 @@
 
         function evaluer2() {
             let echelle = document.querySelector('input[name="echelle1"]:checked').value;
-            reponses[reponses.length - 1].echelle2 = echelle; // Enregistre l'échelle 1 de la dernière réponse
+            reponses[reponses.length - 1].echelle2 = {"text": document.getElementById("texteEchelle").innerText};
+            reponses[reponses.length - 1].echelle2.valeur = echelle; // Enregistre l'échelle 1 de la dernière réponse
             document.getElementById("echelle2").style.display = "none"; // Cache l'échelle 1
             document.getElementById("evaluer2").style.display = "none"; // Cache le bouton d'évaluation 1
             if(experience == 1){
@@ -264,7 +267,8 @@
         function evaluer3() {
             let echelle = document.querySelector('input[name="echelle3"]:checked').value;
             verifierEchelle("echelle3", "evaluer3");
-            reponses[reponses.length - 1].echelle3 = echelle; // Enregistre l'échelle 2 de la dernière réponse
+            reponses[reponses.length - 1].echelle3 = {"text": document.getElementById("texteEchelle").innerText};
+            reponses[reponses.length - 1].echelle3.valeur = echelle; // Enregistre l'échelle 2 de la dernière réponse
             // afficherQuestion();
             document.getElementById("echelle3").style.display = "none"; // Cache l'échelle 1
             document.getElementById("evaluer3").style.display = "none";
@@ -281,8 +285,10 @@
         function evaluer4(){
             let echelle = document.querySelector('input[name="echelle4"]:checked').value;
             verifierEchelle("echelle4", "evaluer4");
-            reponses[reponses.length - 1].echelle4 = echelle;
-            localStorage.setItem("reponses", reponses);
+            reponses[reponses.length - 1].echelle4 = {"text": document.getElementById("texteEchelle").innerText};
+            reponses[reponses.length - 1].echelle4.valeur = echelle;
+            localStorage.setItem("reponses", JSON.stringify(reponses));
+            console.log(typeof reponses);
             afficherQuestion();
         }
 
