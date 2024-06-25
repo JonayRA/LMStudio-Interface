@@ -98,6 +98,14 @@
     bouton.disabled = true;
     document.getElementById('envoyer').style.display = 'block';
     let cuestionario;
+    let reponsesQuestionnaires;
+
+        if(currentQuestionnaire != 0){
+            let storedData = localStorage.getItem("reponsesQuestionnaires");
+            reponsesQuestionnaires = storedData ? JSON.parse(storedData) : [];
+        } else {
+            reponsesQuestionnaires = [];
+        }
     
         if(currentQuestionnaire == 0){
             if (condition == 1){
@@ -120,7 +128,7 @@
         }
     }
 
-
+//reponsesQuestionnaires[reponsesQuestionnaires.length - 1] = {"numero questionnaire":currentQuestionnaire}
 
 // Selecciona el elemento con id "PresentationQuestionnaire"
 let presentationDiv = document.getElementById('PresentationQuestionnaire');
@@ -128,8 +136,18 @@ let presentationDiv = document.getElementById('PresentationQuestionnaire');
 // Cambia el texto del elemento
 presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affirmations suivantes.' + `${cuestionario.Min.Valeur} = ${cuestionario.Min.Statement} et ${cuestionario.Max.Valeur} = ${cuestionario.Max.Statement}`;
 
+/*reponsesQuestionnaires[reponsesQuestionnaires.length - 1].text = presentationDiv.textContent;
+reponsesQuestionnaires[reponsesQuestionnaires.length - 1].min = {"Valeur": cuestionario.Min.Valeur, "text":cuestionario.Min.Statement}
+reponsesQuestionnaires[reponsesQuestionnaires.length - 1].max = {"Valeur": cuestionario.Max.Valeur, "text":cuestionario.Max.Statement}*/
 
+reponsesQuestionnaires.push({
+    "numero questionnaire": currentQuestionnaire,
+    "text": presentationDiv.textContent,
+    "min": {"Valeur": cuestionario.Min.Valeur, "text": cuestionario.Min.Statement},
+    "max": {"Valeur": cuestionario.Max.Valeur, "text": cuestionario.Max.Statement}
+});
    // var cuestionario = ChatGPTLiteracyScale;
+
 /*for (let i = 0; i < cuestionario.Items.length; i++) {
     let questionDiv = document.createElement('div');
     questionDiv.className = 'question';
@@ -192,6 +210,55 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
 
 
     document.getElementById('envoyer').addEventListener('click', function(event) {
+
+
+            let reponses = [];
+    
+    for (let i = 0; i < cuestionario.Items.length; i++) {
+        let questionText = cuestionario.Items[i];
+        let selectedValue;
+        
+        // Obtener el valor seleccionado
+        if (cuestionario.Max.Valeur < 20) {
+            let radios = document.getElementsByName("q" + (i+1));
+            for (let radio of radios) {
+                if (radio.checked) {
+                    selectedValue = radio.value;
+                    break;
+                }
+            }
+        } else {
+            let inputNum = document.getElementsByName("q" + (i+1))[0];
+            if (inputNum.value) {
+                selectedValue = inputNum.value;
+            }
+        }
+        
+        // Crear el objeto de respuesta
+        if (selectedValue !== undefined) {
+            reponses.push({
+                text: questionText,
+                valeur: selectedValue
+            });
+        }
+    }
+    
+    // Almacenar las respuestas en el objeto reponsesQuestionnaires
+    console.log(JSON.stringify(reponsesQuestionnaires));
+    reponsesQuestionnaires[reponsesQuestionnaires.length - 1].reponses = reponses;
+
+
+
+
+
+
+
+
+
+
+
+
+        localStorage.setItem("reponsesQuestionnaires", JSON.stringify(reponsesQuestionnaires));
         currentQuestionnaire += 1;
         localStorage.setItem("currentQuestionnaire", currentQuestionnaire);
         if(currentQuestionnaire == 3){
