@@ -80,6 +80,7 @@
         // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
         localStorage.setItem("currentQuestionnaire", 0);
         let indiceAleatoire;
+        let ordreReponse = 1;
         /*let questions = [];
         for (let i = 1; i <= 50; i++) {
             questions.push("Question " + i);
@@ -196,6 +197,7 @@
         function repondre() {
             let reponse = document.getElementById("reponse").value;
             // reponses.push({question:{ "text": document.getElementById("question").innerText, "indice": questions[indiceAleatoire].indice,"response": reponse}});
+            reponses[reponses.length - 1].ordreReponses = ordreReponse;
             reponses[reponses.length - 1].response = reponse;
             reponses[reponses.length - 1].tempsReponse = Date.now()-debut;
             document.getElementById("reponse").style.display = "none"; // Cache la réponse
@@ -213,6 +215,7 @@
             reinitialiserEchelle("echelle1","evaluer1"); // Réinitialise l'échelle 1
             document.getElementById("chronometre").style.display = "none"; // Cache le chronometre
             clearInterval(intervalId); // Arrête le chronomètre
+            ordreReponse++;
         }
 
         function verifierEchelle(idEchelle, idBouton) {
