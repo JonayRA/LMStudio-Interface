@@ -164,6 +164,7 @@
                 return;
             }
             // reponses.push({question: document.getElementById("question").innerText, reponse});
+            reponses[currentReponseIndex].ordreReponseMemorisation = currentPosArrayIndices;
             reponses[currentReponseIndex].reponseMemorisation = reponse;
             reponses[currentReponseIndex].tempsReponseMemorisation = Date.now()-debut;
             localStorage.setItem("reponses", JSON.stringify(reponses));
