@@ -75,14 +75,15 @@
     <button class="bouton" id="evaluerConnaissance" style="display: none;">Évaluer</button>-->
     <div class = "echelle" id="echelle4" style="display: none;"></div>
     <button class="bouton" id="evaluer4" style="display: none;">Évaluer</button>
-
+    <script src="questions.js"></script>
     <script>
         // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
         localStorage.setItem("currentQuestionnaire", 0);
-        let questions = [];
+        let indiceAleatoire;
+        /*let questions = [];
         for (let i = 1; i <= 50; i++) {
             questions.push("Question " + i);
-        }
+        }*/
         let reponses = []; // Pour enregistrer les réponses
         let minEchelle = 1; // Minimum de l'échelle
         // let maxEchelle = 5; // Maximum de l'échelle
@@ -143,8 +144,9 @@
         }
 
         function obtenirQuestionAleatoire() {
-            let indiceAleatoire = Math.floor(Math.random() * questions.length);
-            let question = questions[indiceAleatoire];
+            indiceAleatoire = Math.floor(Math.random() * questions.length);
+            let question = questions[indiceAleatoire].question;
+            reponses.push(questions[indiceAleatoire]); // "text": questions[indiceAleatoire].question, "indice": questions[indiceAleatoire].indice});
             questions.splice(indiceAleatoire, 1); // Supprime la question du tableau pour éviter la répétition
             return question;
         }
@@ -193,8 +195,9 @@
 
         function repondre() {
             let reponse = document.getElementById("reponse").value;
-            reponses.push({question:{ "text": document.getElementById("question").innerText,"response": reponse}});
-            reponses[reponses.length - 1].question.tempsReponse = Date.now()-debut;
+            // reponses.push({question:{ "text": document.getElementById("question").innerText, "indice": questions[indiceAleatoire].indice,"response": reponse}});
+            reponses[reponses.length - 1].response = reponse;
+            reponses[reponses.length - 1].tempsReponse = Date.now()-debut;
             document.getElementById("reponse").style.display = "none"; // Cache la réponse
             document.getElementById("texteEchelle").style.display = "block"; // Affiche le texte de l'échelle
             document.getElementById("echelle1").style.display = "block"; // Affiche l'échelle 1

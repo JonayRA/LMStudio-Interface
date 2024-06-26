@@ -62,19 +62,61 @@
         for (let i = 1; i <= 50; i++) {
             questions.push("Question " + i);
         }
-        let reponses = []; // Pour enregistrer les réponses
+        // let reponses = []; // Pour enregistrer les réponses
         let minEchelle = 1; // Minimum de l'échelle
         let maxEchelle = 5; // Maximum de l'échelle
         let maxMots = 200; // Maximum de mots
 
+        let reponses = JSON.parse(localStorage.getItem("reponses"));
+        let shuffledIndices;
+        let currentPosArrayIndices = 0;
+        let currentReponseIndex;
+        
+        if (reponses && reponses.length > 0) {
+
+            // Créer un array avec tous les valeurs d'indice
+            let indices = reponses.map(item => item.indice);
+
+            // Fonction pour réorganiser les indices
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            // Dernier valeur d'indice dans les questions
+            let lastIndice = reponses[reponses.length - 1].indice;
+
+            do {
+                // Créer une copie d'indices
+                shuffledIndices = [...indices];
+
+                // Reorganiser l'array d'indices aléatoirement
+                shuffleArray(shuffledIndices);
+            } while (shuffledIndices[0] === lastIndice);
+        }
+
         
 
         function obtenirQuestionAleatoire() {
-            let indiceAleatoire = Math.floor(Math.random() * questions.length);
+            /*let indiceAleatoire = Math.floor(Math.random() * questions.length);
             let question = questions[indiceAleatoire];
-            questions.splice(indiceAleatoire, 1); // Supprime la question du tableau pour éviter la répétition
+            questions.splice(indiceAleatoire, 1); // Supprime la question du tableau pour éviter la répétition*/
+            if (currentPosArrayIndices >= shuffledIndices.length) {
+                window.location.href = 'Remerciements.html';
+                // return null;
+            }
+            
+            let indiceActuel = shuffledIndices[currentPosArrayIndices];
+            let question = reponses.find(item => item.indice === indiceActuel).question;
+            // currentReponse = reponses.find(item => item.indice === indiceActuel)
+            currentReponseIndex = reponses.findIndex(item => item.indice === indiceActuel);
+            
+            currentPosArrayIndices++; // Incrementar el índice para la próxima llamada
+            
             return question;
-        }
+            }
 
         document.addEventListener('keydown', function(event) {
             if (event.ctrlKey && event.shiftKey && event.key === "U") {
@@ -121,7 +163,10 @@
                 alert('Svp veuillez introduire moins de 10 mots.');
                 return;
             }
-            reponses.push({question: document.getElementById("question").innerText, reponse});
+            // reponses.push({question: document.getElementById("question").innerText, reponse});
+            reponses[currentReponseIndex].reponseMemorisation = reponse;
+            reponses[currentReponseIndex].tempsReponseMemorisation = Date.now()-debut;
+            localStorage.setItem("reponses", JSON.stringify(reponses));
             clearInterval(intervalId);
             afficherQuestion();
 

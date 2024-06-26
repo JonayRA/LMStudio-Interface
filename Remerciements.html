@@ -51,11 +51,11 @@
 </head>
 <body>
     <div class="container">
-        <div class="welcome-text">Merci de votre participation</div>
+        <div class="welcome-text"><p>Merci de votre participation. <br> Veuillez informer l'expérimentateur que vous avez fini.</div>
         <div class="instructions">
             <p></p>
         </div>
-        <button class="welcome-button" onclick="redirectToOtherPage()">Cliquez ici pour continuer</button>
+        <!--<button class="welcome-button" onclick="redirectToOtherPage()">Cliquez ici pour continuer</button>-->
     </div>
 
     <script>
@@ -63,6 +63,75 @@
             // Remplacez 'autrePage.html' par le nom de votre page locale
             window.location.href = 'Main-chrono.html';
         }
+        function saveParticipantData() {
+    let numParticipant = localStorage.getItem("numParticipant");
+    let condition = localStorage.getItem("condition");
+    let session = localStorage.getItem("session");
+    let experience = localStorage.getItem("experience");
+    let sexe = localStorage.getItem("sexe");
+    let genre = localStorage.getItem("genre");
+    let age = localStorage.getItem("age");
+    let niveauScolarite = localStorage.getItem("niveauScolarite");
+    let niveauFrancais = localStorage.getItem("niveauFrancais");
+
+    let participantData = {
+        numParticipant: numParticipant,
+        condition: condition,
+        session: session,
+        experience: experience,
+        sexe: sexe,
+        genre: genre,
+        age: age,
+        niveauScolarite: niveauScolarite,
+        niveauFrancais: niveauFrancais
+    };
+
+    // Crear un archivo JSON local
+    let fileName = "participant" + numParticipant + "_donnesParticipants.json";
+    downloadJSON(participantData, fileName);
+}
+
+function saveReponsesData() {
+    let numParticipant = localStorage.getItem("numParticipant");
+
+    // Recuperar reponsesQuestionnaires
+    let reponsesQuestionnaires = JSON.parse(localStorage.getItem("reponsesQuestionnaires"));
+    let fileNameQuestionnaires = "participant" + numParticipant + "_questionnaires.json";
+    downloadJSON(reponsesQuestionnaires, fileNameQuestionnaires);
+
+    // Recuperar reponses
+    let reponses = JSON.parse(localStorage.getItem("reponses"));
+    let fileNameReponses = "participant" + numParticipant + "_reponses.json";
+    downloadJSON(reponses, fileNameReponses);
+}
+
+function downloadJSON(data, fileName) {
+    let json = JSON.stringify(data, null, 2); // Formatear JSON
+    let blob = new Blob([json], { type: "application/json" });
+    let url = URL.createObjectURL(blob);
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Guardar los datos del participante y las respuestas al finalizar
+
+
+
+        document.addEventListener('keydown', function(event) {
+            if ((event.ctrlKey && event.shiftKey && event.key === "F") || (event.ctrlKey && event.key === 'Enter')) {
+
+                saveParticipantData();
+                saveReponsesData();
+
+                
+            }
+            
+        });
     </script>
 </body>
 </html>
