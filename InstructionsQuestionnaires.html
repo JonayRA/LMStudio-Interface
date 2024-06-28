@@ -54,17 +54,17 @@
             
             <p>Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...</p>
         </div>
-        
+
         <button class="welcome-button" onclick="redirectToOtherPage()">Commencer</button>
     </div>
 
-    <script>
-
+        <script>
+            const condition = localStorage.getItem('condition');
+            const currentQuestionnaire = localStorage.getItem('currentQuestionnaire');
+            const experience = localStorage.getItem('experience');
         function cambiarContenido() {
             // Obtener la variable de localStorage
-            const condition = localStorage.getItem('condition');
-            const experience = localStorage.getItem('experience');
-            const currentQuestionnaire = localStorage.getItem('currentQuestionnaire');
+            
             console.log(condition,experience)
             
 
