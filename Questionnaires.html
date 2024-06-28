@@ -265,6 +265,9 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
         if(currentQuestionnaire == 3){
         event.preventDefault();
         window.location.href = 'PresentationTestMemoireSurprise.html';
+        }else if (currentQuestionnaire == 2 && experience == 2){
+            event.preventDefault();
+        window.location.href = 'InstructionsQuestionnaires.html';
         }
 
         let radios = document.querySelectorAll('input[type="radio"]');

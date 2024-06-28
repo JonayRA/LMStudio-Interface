@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Instructions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 0;
+            background-color: #f0f0f0;
+            font-size: 20px;
+        }
+
+        .container {
+           /* display: flex;
+            flex-direction: column;
+            justify-content: center;*/
+            align-items: center;
+            height: 100vh;
+            /*overflow-y: auto; /* Permite el desplazamiento vertical */
+            /*padding: 20px; /* Añade un poco de espacio alrededor del contenido */
+        /*}*/
+
+        .welcome-text {
+            font-size: 2em;
+            color: #333;
+        }
+
+        .instructions {
+            margin-top: 20px;
+            text-align: justify;
+        }
+
+        .welcome-button {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            cursor: pointer;
+        }
+         li {
+            padding-bottom: 10px; /* Ajusta este valor según lo necesites */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-text">Instructions</div>
+        <div class="instructions" id='Instructions'>
+            
+            <p>Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...Plus d'instructions...</p>
+        </div>
+        
+        <button class="welcome-button" onclick="redirectToOtherPage()">Commencer</button>
+    </div>
+
+    <script>
+
+        function cambiarContenido() {
+            // Obtener la variable de localStorage
+            const condition = localStorage.getItem('condition');
+            const experience = localStorage.getItem('experience');
+            const currentQuestionnaire = localStorage.getItem('currentQuestionnaire');
+            console.log(condition,experience)
+            
+
+
+            // Verificar y cambiar el contenido de la div basado en la opción
+            let nuevoContenido;
+            if (condition == 2 && experience == 1) {
+                nuevoContenido = '<p>Vous êtes maintenant invités à répondre à trois (3) questionnaires. Le premier questionnaire mesure l’aisance liée à l’utilisation d’Internet, le deuxième mesure les compétences personnelles métacognitives reliées à la recherche sur le Web, puis le troisième questionnaire aborde plus globalement la métacognition.</p>';
+            } else if (condition == 1 && experience == 1) {
+                nuevoContenido = '<p>Vous êtes maintenant invités à répondre à trois (3) questionnaires. Le premier questionnaire mesure l’aisance liée à l’utilisation d’Internet, le deuxième mesure les compétences personnelles métacognitives reliées à la recherche sur le Web, puis le troisième questionnaire aborde plus globalement la métacognition.</p>';
+            } else if (condition == 2 && experience == 2 && currentQuestionnaire != 2) {
+                nuevoContenido = '<p>Vous êtes maintenant invité(e)s à répondre à deux questionnaires. Dans le premier questionnaire, vous indiquerez à quel niveau vous estimez votre compétence avec l’utilisation d’une IA conversationnelle. Dans le deuxième questionnaire, vous indiquerez quel niveau d’effort mental général vous a demandé la tâche précédente.</p>';
+            } else if (condition == 1 && experience == 2 && currentQuestionnaire != 2) {
+                nuevoContenido = '<p>Vous êtes maintenant invité(e)s à répondre à deux questionnaires. Dans le premier questionnaire, vous indiquerez à quel niveau vous estimez votre compétence avec l’utilisation d’Internet. Dans le deuxième questionnaire, vous indiquerez quel niveau d’effort mental général vous a demandé la tâche précédente.</p><p>Vous êtes maintenant invités à accomplir cette tâche afin d’évaluer vos capacités individuelles de déploiement de charge mentale (Operation Span).</p>';
+            } else if (experience == 2 && currentQuestionnaire == 2) {
+                '<p>Vous êtes maintenant invités à accomplir cette tâche afin d’évaluer vos capacités individuelles de déploiement de charge mentale (Operation Span).</p>';
+            } else {
+                nuevoContenido = '<p>Combination non definie</p>';
+            }
+
+            // Cambiar el contenido de la div
+            document.getElementById('Instructions').innerHTML = nuevoContenido;
+        }
+
+        cambiarContenido();
+
+        // Configurar una opción inicial para pruebas
+        function redirectToOtherPage() {
+            // Remplacez 'autrePage.html' par le nom de votre page locale
+            if(!(experience == 2 && currentQuestionnaire == 2)){
+            window.location.href = 'Questionnaires.html';
+        } else {
+            // LIEN A OSPAN E.G.: window.location.href = 'OSPAN.html';
+        }
+        }
+    </script>
+</body>
+</html>
