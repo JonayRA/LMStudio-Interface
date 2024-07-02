@@ -23,7 +23,7 @@
         }
         #enlaceBoton {
             margin-top: 20px;
-            margin-left: 94px;
+            margin-left: 140px;
             padding: 10px 20px;
             font-size: 1em;
             color: #fff;
@@ -35,8 +35,8 @@
 </head>
 <body>
     <form>
-        <label for="sexe">Sexe:</label>
-        <select id="sexe" name="sexe">
+        <label for="genre">Genre* :</label>
+        <select id="genre" name="genre">
             <option value="" selected>Veuillez choisir</option>
             <option value="homme">Homme</option>
             <option value="femme">Femme</option>
@@ -44,8 +44,8 @@
             <option value="preferePasDire">Je préfère ne pas dire</option>
         </select><br><br>
 
-        <label for="genre">Genre:</label>
-        <select id="genre" name="genre">
+        <label for="sexe">Sexe* :</label>
+        <select id="sexe" name="sexe">
             <option value="" selected>Veuillez choisir</option>
             <option value="masculin">Masculin</option>
             <option value="feminin">Féminin</option>
@@ -54,10 +54,10 @@
             <option value="preferePasDire">Je préfère ne pas dire</option>
         </select><br><br>
 
-        <label for="age">Âge:</label>
+        <label for="age">Âge* :</label>
         <input type="number" id="age" name="age"><br><br>
 
-        <label for="niveauScolarite">Dernier niveau de scolarité complété:</label>
+        <label for="niveauScolarite">Dernier niveau de scolarité complété*:</label>
         <select id="niveauScolarite" name="niveauScolarite">
             <option value="" selected>Veuillez choisir</option>
             <option value="secondaire">Secondaire</option>
@@ -67,8 +67,15 @@
             <option value="troisiemeCycle">Troisième cycle universitaire</option>
         </select><br><br>
 
-        <label for="niveauFrancais">Niveau de maîtrise du français (0 à 10):</label>
+        <label for="niveauFrancais">Niveau de maîtrise du français (0 à 10)* :</label>
         <input type="number" id="niveauFrancais" name="niveauFrancais" min="0" max="10"><br><br>
+
+        <div id="troublesPsico">
+            <div><label for="remarks">Veuillez svp indiquer toute information qui pourrait affecter <br> votre performance à une tâche cognitive (par exemple, <br> troubles neurodeveloppementaux, consommation <br>récente de substances psicoactives) : </label></div>
+            <textarea id="troublesPsico" name="troublesPsico" rows="4" cols="50"></textarea><br><br>
+        </div>
+
+        <div><p>*Champs obligatoires.</p></div>
 
         
         <button type="button" id="enlaceBoton">Débuter l'expérience</button>

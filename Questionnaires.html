@@ -54,6 +54,7 @@
 </head>
 <body>
     <div>
+        <h3 id="titreQuestionnaire">Tire</h3>
             <div id="PresentationQuestionnaire">Présentation questionnaire</div>
     </div>
     <form id="questionnaire">
@@ -131,6 +132,10 @@
 //reponsesQuestionnaires[reponsesQuestionnaires.length - 1] = {"numero questionnaire":currentQuestionnaire}
 
 // Selecciona el elemento con id "PresentationQuestionnaire"
+let h3Element = document.getElementById('titreQuestionnaire');
+h3Element.textContent = cuestionario.Titre;
+
+
 let presentationDiv = document.getElementById('PresentationQuestionnaire');
 
 // Cambia el texto del elemento

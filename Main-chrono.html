@@ -56,6 +56,7 @@
     </style>
 </head>
 <body>
+    <h3>   </h3>
     <div id="question"></div>
     <textarea id="reponse" placeholder="Écrivez votre réponse ici" oninput="compterMots()" maxlength="100000"></textarea>
     <div id="compteur"></div>
@@ -66,7 +67,7 @@
     <div class = "echelle" id="echelle2" style="display: none;"></div>
     <button class="bouton" id="evaluer2" style="display: none;">Évaluer</button>
     <div class = "echelle" id="echelle3" style="display: none;"></div>
-    <button class="bouton" id="evaluer3" style="display: none;">Évaluer</button>
+    <button class="bouton" id="evaluer3" style="display: none;">Continuer</button>
     <div id="chronometre">00:00</div>
     <!--<div id="connaissance" style="display: none;">
 
@@ -86,11 +87,11 @@
             questions.push("Question " + i);
         }*/
         let reponses = []; // Pour enregistrer les réponses
-        let minEchelle = 1; // Minimum de l'échelle
+        // let minEchelle = 1; // Minimum de l'échelle
         // let maxEchelle = 5; // Maximum de l'échelle
         let maxMots = 200; // Maximum de mots
         const experience = JSON.parse(localStorage.getItem('experience'));
-        function creerEchelle(idEchelle, maxEchelle) {
+        function creerEchelle(idEchelle, maxEchelle,minEchelle) {
                 let divEchelle = document.getElementById(idEchelle);
 
 
@@ -263,7 +264,7 @@
             intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
         } else {
             document.getElementById("question").innerText = "";
-            document.getElementById("texteEchelle").innerText = "Sur une échelle de 0 à 10, j’estime ma connaissance initiale par rapport au sujet de la question au niveau suivant.";
+            document.getElementById("texteEchelle").innerText = "Sur une échelle de 0 à 10, j’estime ma connaissance initiale par rapport au sujet de la question au niveau suivant. 0=Aucune connaîssance. 10=Connaîssance experte";
             document.getElementById("echelle4").style.display = "block"; // Affiche l'échelle 2
             document.getElementById("evaluer4").style.display = "block";
             reinitialiserEchelle("echelle4","evaluer4");
@@ -349,10 +350,10 @@
         document.getElementById("evaluer3").addEventListener("click", evaluer3);
         document.getElementById("evaluer4").addEventListener("click", evaluer4);
         //document.getElementById("evaluerConnaissance").addEventListener("click",evaluerConnaissance);
-        creerEchelle("echelle1",5);
-        creerEchelle("echelle2",5);
-        creerEchelle("echelle3",5);
-        creerEchelle("echelle4",10);
+        creerEchelle("echelle1",5,1);
+        creerEchelle("echelle2",5,1);
+        creerEchelle("echelle3",5,1);
+        creerEchelle("echelle4",10,0);
         afficherQuestion();
     </script>
 </body>

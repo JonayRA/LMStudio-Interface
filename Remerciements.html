@@ -51,11 +51,11 @@
 </head>
 <body>
     <div class="container">
-        <div class="welcome-text"><p>Merci de votre participation. <br> Veuillez informer l'expérimentateur que vous avez fini.</div>
+        <div class="welcome-text"><p>Merci de votre participation. <br> Veuillez informer l'équipe de recherche que vous avez fini.</div>
         <div class="instructions">
             <p></p>
         </div>
-        <!--<button class="welcome-button" onclick="redirectToOtherPage()">Cliquez ici pour continuer</button>-->
+        <button class="welcome-button" id ="buttonFin" onclick="redirectToOtherPage()">Bouton pour l'équipe de recherche</button>
     </div>
 
     <script>
@@ -132,6 +132,12 @@ function downloadJSON(data, fileName) {
             }
             
         });
+
+        document.getElementById('buttonFin').addEventListener('click', function() {
+            saveParticipantData();
+                saveReponsesData();
+            });
+
     </script>
 </body>
 </html>

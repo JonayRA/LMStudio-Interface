@@ -1,4 +1,5 @@
-var InternetSkills = {Code: "InternetSkills", Min:{Valeur:1,Statement:"ne me correspond pas du tout"},Max:{Valeur:5,Statement:"me correspond beaucoup"},
+
+var InternetSkills = {Code: "InternetSkills", Titre: "Internet skills", Min:{Valeur:1,Statement:"ne me correspond pas du tout"},Max:{Valeur:5,Statement:"me correspond beaucoup"},
     Items: [
         "Je sais comment télécharger des fichiers.",
         "Je sais comment télécharger/sauvegarder des photos trouvées en ligne.",
@@ -33,6 +34,7 @@ var InternetSkills = {Code: "InternetSkills", Min:{Valeur:1,Statement:"ne me cor
 
 var ChatGPTLiteracyScale = {
     Code: "ChatGPTLiteracyScale",
+    Titre: "Chat GPT Literacy Scale",
     Min: {Valeur: 1, Statement: "fortement en désaccord"},
     Max: {Valeur: 5, Statement: "fortement en accord"},
     Items: [
@@ -67,6 +69,7 @@ var ChatGPTLiteracyScale = {
 
 var MetacognitiveSkillsInventory = {
     Code: "MetacognitiveSkillsInventory",
+    Titre: "Metacognitive skills inventory",
     Min: {Valeur: 1, Statement: "jamais"},
     Max: {Valeur: 4, Statement: "toujours"},
     Items: [
@@ -92,6 +95,7 @@ var MetacognitiveSkillsInventory = {
 
 var StateMetacognitiveInventory = {
     Code: "StateMetacognitiveInventory",
+    Titre: "State metacognitive inventory",
     Min: {Valeur: 1, Statement: "pas du tout"},
     Max: {Valeur: 4, Statement: "tout à fait"},
     Items: [
@@ -120,6 +124,7 @@ var StateMetacognitiveInventory = {
 
 var NASA_TaskLoadIndex = {
     Code:"NASA_TaskLoadIndex",
+    Titre:"NASA Task load index",
     Min: {Valeur: 1, Statement: "faible"},
     Max: {Valeur: 100, Statement: "forte"},
     Items: [
