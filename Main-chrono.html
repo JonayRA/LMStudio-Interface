@@ -80,6 +80,7 @@
     <script>
         // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
         localStorage.setItem("currentQuestionnaire", 0);
+        const nombreDeQuestions = questions.length;
         let indiceAleatoire;
         let ordreReponse = 1;
         /*let questions = [];
@@ -164,7 +165,7 @@
         });
 
         function afficherQuestion() {
-            if (questions.length > (39-12)) {
+            if (questions.length > (nombreDeQuestions-12)) {
                 //let question = questions.shift(); // Obtient la question suivante
                 let question = obtenirQuestionAleatoire();
                 document.getElementById("question").innerText = question;
