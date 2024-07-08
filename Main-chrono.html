@@ -91,6 +91,7 @@
         // let maxEchelle = 5; // Maximum de l'échelle
         let maxMots = 200; // Maximum de mots
         const experience = JSON.parse(localStorage.getItem('experience'));
+        console.log(questions.length)
         function creerEchelle(idEchelle, maxEchelle,minEchelle) {
                 let divEchelle = document.getElementById(idEchelle);
 
@@ -163,7 +164,7 @@
         });
 
         function afficherQuestion() {
-            if (questions.length > (50-12)) {
+            if (questions.length > (39-12)) {
                 //let question = questions.shift(); // Obtient la question suivante
                 let question = obtenirQuestionAleatoire();
                 document.getElementById("question").innerText = question;

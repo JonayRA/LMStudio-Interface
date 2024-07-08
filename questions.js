@@ -37,9 +37,9 @@ var questions = [
     {"indice": 36, "question": "Quels sont les types de nuages catégorisés selon leur hauteur et quelles conditions météorologiques peuvent-ils indiquer?", "questionMemorisation": "Comment se nomme la catégorie de nuages situés le plus en hauteur?", "informationCle": "Cirrus"},
     {"indice": 37, "question": "Quel est le plus grand désert froid du monde et quelles sont ses caractéristiques géographiques principales (faune et flore, climat, position géographique)?", "questionMemorisation": "Quel est le type de climat présent dans le désert de l’Antarctique?", "informationCle": "Climat polaire"},
     {"indice": 38, "question": "Quelles sont les étapes de la formation d’une image sur la rétine?", "questionMemorisation": "Quel est l’organe qui contribue à focaliser les rayons lumineux dans l’œil [sur la rétine] et qui permet une bonne vision de près et de loin en se contractant ou dilatant?", "informationCle": "Le cristallin"},
-    {"indice": 39, "question": "Qu’est-ce que la paréidolie visuelle et qu’est-ce qui la cause?", "questionMemorisation": "Nommez une cause de la paréidolie visuelle.", "informationCle": "Dysfonctionnement cérébral, lésion au lobe temporal, évolution/survie"},
+    {"indice": 39, "question": "Qu’est-ce que la paréidolie visuelle et qu’est-ce qui la cause?", "questionMemorisation": "Nommez une cause de la paréidolie visuelle.", "informationCle": "Dysfonctionnement cérébral, lésion au lobe temporal, évolution/survie"}
     // {"indice": 40, "question": "Qu’est-ce que la Pax Mongolica et quel a été son impact sur le commerce entre les différentes sociétés de l’Eurasie?", "questionMemorisation": "Quelle route a été revitalisée lors de la Pax Mongolica?", "informationCle": "Route de la soie"}
-]
+];
 
 
 /*var questions = [
