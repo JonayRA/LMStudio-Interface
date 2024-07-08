@@ -139,7 +139,11 @@ h3Element.textContent = cuestionario.Titre;
 let presentationDiv = document.getElementById('PresentationQuestionnaire');
 
 // Cambia el texto del elemento
-presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affirmations suivantes.' + `${cuestionario.Min.Valeur} = ${cuestionario.Min.Statement} et ${cuestionario.Max.Valeur} = ${cuestionario.Max.Statement}`;
+if( cuestionario.Code != "StateMetacognitiveInventory" && cuestionario.Code != "NASA_TaskLoadIndex"){
+presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affirmations suivantes. ' + `${cuestionario.Min.Valeur} = ${cuestionario.Min.Statement} et ${cuestionario.Max.Valeur} = ${cuestionario.Max.Statement}`;
+}else{
+presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affirmations suivantes. Veuillez répondre en fonction de vos réflexions pendant que vous cherchiez les réponses aux questions à développement. ' + `${cuestionario.Min.Valeur} = ${cuestionario.Min.Statement} et ${cuestionario.Max.Valeur} = ${cuestionario.Max.Statement}`;
+}
 
 /*reponsesQuestionnaires[reponsesQuestionnaires.length - 1].text = presentationDiv.textContent;
 reponsesQuestionnaires[reponsesQuestionnaires.length - 1].min = {"Valeur": cuestionario.Min.Valeur, "text":cuestionario.Min.Statement}

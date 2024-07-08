@@ -61,7 +61,7 @@
     <script>
         function redirectToOtherPage() {
             // Remplacez 'autrePage.html' par le nom de votre page locale
-            window.location.href = 'Main-chrono.html';
+            // window.location.href = 'Main-chrono.html';
         }
         function saveParticipantData() {
     let numParticipant = localStorage.getItem("numParticipant");
@@ -114,8 +114,8 @@ function downloadJSON(data, fileName) {
     a.download = fileName;
     document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+   // document.body.removeChild(a);
+   // URL.revokeObjectURL(url);
 }
 
 // Guardar los datos del participante y las respuestas al finalizar

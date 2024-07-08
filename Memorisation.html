@@ -109,7 +109,7 @@
             }
             
             let indiceActuel = shuffledIndices[currentPosArrayIndices];
-            let question = reponses.find(item => item.indice === indiceActuel).question;
+            let question = reponses.find(item => item.indice === indiceActuel).questionMemorisation;
             // currentReponse = reponses.find(item => item.indice === indiceActuel)
             currentReponseIndex = reponses.findIndex(item => item.indice === indiceActuel);
             
@@ -128,7 +128,7 @@
         });
 
         function afficherQuestion() {
-            if (questions.length > (50-12)) {
+            if (questions.length > (39-12)) {
                 //let question = questions.shift(); // Obtient la question suivante
                 let question = obtenirQuestionAleatoire();
                 document.getElementById("question").innerText = question;
@@ -143,7 +143,11 @@
                     if (tiempoTranscurrido >= 60) {
                         clearInterval(intervalId);
                         alert("Il s'est écoulé plus d'une minute. Veuillez cliquer sur 'OK' pour continuer.");
-                        reponses.push({ question: question, reponse: "TimeOut" });
+                        reponses[currentReponseIndex].ordreReponseMemorisation = currentPosArrayIndices;
+						reponses[currentReponseIndex].reponseMemorisation = "TimeOut";
+						reponses[currentReponseIndex].tempsReponseMemorisation = Date.now()-debut;
+						localStorage.setItem("reponses", JSON.stringify(reponses));
+						clearInterval(intervalId);
                         afficherQuestion();
                     }
                 }, 61000);
