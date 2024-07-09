@@ -136,3 +136,5 @@ var NASA_TaskLoadIndex = {
         "FRUSTRATION : Au cours de la tâche, quel sentiment de manque d'assurance, de découragement, d'irritabilité, de stress ou d'agacement avez-vous ressenti contrairement au fait d’être certain.e, satisfait.e, content.e, détendu.e et complaisant.e ?"
     ]
 }
+
+var InternetSkills = {Code: "OSPAN", Titre: "Veuillez appeller l'équipe de recherche pour la tâche suivante."}
