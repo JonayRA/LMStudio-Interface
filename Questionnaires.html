@@ -354,7 +354,15 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
 });
 
 if(cuestionario.Code == "OSPAN"){
-        document.getElementById('envoyer').disabled = false;
+        setTimeout(() => {
+    document.getElementById('envoyer').disabled = false;
+        }, 120000);
+
+        document.addEventListener('keydown', function(event) {
+            if ((event.ctrlKey && event.shiftKey && event.key === "F") || (event.ctrlKey && event.key === 'Enter')) {
+                document.getElementById('envoyer').disabled = false;
+            }
+        });
     }
 
     
