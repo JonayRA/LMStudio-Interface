@@ -137,4 +137,4 @@ var NASA_TaskLoadIndex = {
     ]
 }
 
-var InternetSkills = {Code: "OSPAN", Titre: "Veuillez appeller l'équipe de recherche pour la tâche suivante."}
+var InternetSkills = {Code: "OSPAN", Titre: "Tâche OSPAN"}

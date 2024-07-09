@@ -139,10 +139,12 @@ h3Element.textContent = cuestionario.Titre;
 let presentationDiv = document.getElementById('PresentationQuestionnaire');
 
 // Cambia el texto del elemento
-if( cuestionario.Code != "StateMetacognitiveInventory" && cuestionario.Code != "NASA_TaskLoadIndex"){
+if( cuestionario.Code != "StateMetacognitiveInventory" && cuestionario.Code != "NASA_TaskLoadIndex" && cuestionario.Code != "OSPAN"){
 presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affirmations suivantes. ' + `${cuestionario.Min.Valeur} = ${cuestionario.Min.Statement} et ${cuestionario.Max.Valeur} = ${cuestionario.Max.Statement}`;
-}else{
+}else if ( cuestionario.Code == "StateMetacognitiveInventory" && cuestionario.Code == "NASA_TaskLoadIndex"){
 presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affirmations suivantes. Veuillez répondre en fonction de vos réflexions pendant que vous cherchiez les réponses aux questions à développement. ' + `${cuestionario.Min.Valeur} = ${cuestionario.Min.Statement} et ${cuestionario.Max.Valeur} = ${cuestionario.Max.Statement}`;
+}else{
+    presentationDiv.textContent = "Veuillez avertir l'équipe de recherche pour la tâche suivante."
 }
 
 /*reponsesQuestionnaires[reponsesQuestionnaires.length - 1].text = presentationDiv.textContent;
@@ -333,6 +335,10 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
 
     // Habilitar/deshabilitar el botón de enviar
     document.getElementById('envoyer').disabled = count === totalQuestions ? false : true;
+
+
+
+
 });
 
 
