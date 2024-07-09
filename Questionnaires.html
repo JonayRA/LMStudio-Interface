@@ -125,7 +125,7 @@
             cuestionario = StateMetacognitiveInventory;
 
         }else if (experience ==2){
-                // cuestionario = tache operation span
+            cuestionario = OSPAN;
         }
     }
 
@@ -150,7 +150,7 @@ presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affi
 /*reponsesQuestionnaires[reponsesQuestionnaires.length - 1].text = presentationDiv.textContent;
 reponsesQuestionnaires[reponsesQuestionnaires.length - 1].min = {"Valeur": cuestionario.Min.Valeur, "text":cuestionario.Min.Statement}
 reponsesQuestionnaires[reponsesQuestionnaires.length - 1].max = {"Valeur": cuestionario.Max.Valeur, "text":cuestionario.Max.Statement}*/
-
+if (cuestionario.Code != "OSPAN"){
 reponsesQuestionnaires.push({
     "numero questionnaire": currentQuestionnaire,
     "code questionnaire": cuestionario.Code,
@@ -158,6 +158,8 @@ reponsesQuestionnaires.push({
     "min": {"Valeur": cuestionario.Min.Valeur, "text": cuestionario.Min.Statement},
     "max": {"Valeur": cuestionario.Max.Valeur, "text": cuestionario.Max.Statement}
 });
+
+
    // var cuestionario = ChatGPTLiteracyScale;
 
 /*for (let i = 0; i < cuestionario.Items.length; i++) {
@@ -218,11 +220,17 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
     questionDiv.innerHTML += '</div>';
     document.getElementById('questionnaire').insertBefore(questionDiv, document.getElementById('envoyer'));
 }
-
+} else {
+    reponsesQuestionnaires.push({
+    "numero questionnaire": currentQuestionnaire,
+    "code questionnaire": cuestionario.Code,
+    "text": presentationDiv.textContent
+})}
 
 
     document.getElementById('envoyer').addEventListener('click', function(event) {
 
+    if (cuestionario.Code != "OSPAN"){
 
             let reponses = [];
     
@@ -259,7 +267,7 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
     console.log(JSON.stringify(reponsesQuestionnaires));
     reponsesQuestionnaires[reponsesQuestionnaires.length - 1].reponses = reponses;
 
-
+}
 
 
 
@@ -276,16 +284,18 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
         if(currentQuestionnaire == 3){
         event.preventDefault();
         window.location.href = 'PresentationTestMemoireSurprise.html';
-        }else if (currentQuestionnaire == 2 && experience == 2){
+        }/*else if (currentQuestionnaire == 2 && experience == 2){
             event.preventDefault();
-        window.location.href = 'InstructionsQuestionnaires.html';
-        }
-
+            window.location.href = 'InstructionsQuestionnaires.html';
+        }*/
+        if (cuestionario.Code != "OSPAN"){
         let radios = document.querySelectorAll('input[type="radio"]');
         radios.forEach(function(radio) {
             radio.checked = false;
         });
+    }
     })
+
 
     /*document.getElementById('questionnaire').addEventListener('change', function() {
         let questions = document.querySelectorAll('.question');
@@ -336,11 +346,16 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
     // Habilitar/deshabilitar el botón de enviar
     document.getElementById('envoyer').disabled = count === totalQuestions ? false : true;
 
+    
+
 
 
 
 });
 
+if(cuestionario.Code == "OSPAN"){
+        document.getElementById('envoyer').disabled = false;
+    }
 
     
 
