@@ -126,7 +126,7 @@ var NASA_TaskLoadIndex = {
     Code:"NASA_TaskLoadIndex",
     Titre:"NASA Task load index",
     Min: {Valeur: 1, Statement: "faible"},
-    Max: {Valeur: 100, Statement: "forte"},
+    Max: {Valeur: 10, Statement: "forte"},
     Items: [
         "EXIGENCE MENTALE : Dans quelle mesure des opérations mentales et perceptives ont-elles été requises (p. ex. : penser, décider, calculer, se rappeler, regarder, chercher, etc.) ?",
         "EXIGENCE PHYSIQUE : Dans quelle mesure des opérations physiques ont-elles été requises (p. ex. : pousser, tirer, tourner, superviser, activer, etc.) ?",

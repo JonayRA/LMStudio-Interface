@@ -138,10 +138,11 @@ h3Element.textContent = cuestionario.Titre;
 
 let presentationDiv = document.getElementById('PresentationQuestionnaire');
 
-// Cambia el texto del elemento
+// Cambia el texto del el,emento
+
 if( cuestionario.Code != "StateMetacognitiveInventory" && cuestionario.Code != "NASA_TaskLoadIndex" && cuestionario.Code != "OSPAN"){
 presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affirmations suivantes. ' + `${cuestionario.Min.Valeur} = ${cuestionario.Min.Statement} et ${cuestionario.Max.Valeur} = ${cuestionario.Max.Statement}`;
-}else if ( cuestionario.Code == "StateMetacognitiveInventory" && cuestionario.Code == "NASA_TaskLoadIndex"){
+}else if ( cuestionario.Code == "StateMetacognitiveInventory" || cuestionario.Code == "NASA_TaskLoadIndex"){
 presentationDiv.textContent = 'Veuillez indiquer la valeur pour chacune des affirmations suivantes. Veuillez répondre en fonction de vos réflexions pendant que vous cherchiez les réponses aux questions à développement. ' + `${cuestionario.Min.Valeur} = ${cuestionario.Min.Statement} et ${cuestionario.Max.Valeur} = ${cuestionario.Max.Statement}`;
 }else{
     presentationDiv.textContent = "Veuillez avertir l'équipe de recherche pour la tâche suivante."
