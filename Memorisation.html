@@ -131,7 +131,7 @@
             if (questions.length > (39-12)) {
                 //let question = questions.shift(); // Obtient la question suivante
                 let question = obtenirQuestionAleatoire();
-                document.getElementById("question").innerText = question;
+                document.getElementById("question").innerText = `${question} Veuillez répondre par l’utilisation d’un seul concept.`;
                 document.getElementById("reponse").style.display = "block"; // Affiche la réponse
                 document.getElementById("envoyer").style.display = "block"; // Affiche le bouton d'envoi
                 document.getElementById("reponse").value = ""; // Nettoie la réponse

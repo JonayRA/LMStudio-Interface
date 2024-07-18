@@ -60,13 +60,14 @@
 
     <script>
         let experience = localStorage.getItem("experience");
+		let condition = localStorage.getItem("condition");
         function redirectToOtherPage() {
             // Remplacez 'autrePage.html' par le nom de votre page locale
             // window.location.href = 'Main-chrono.html';
         }
         function saveParticipantData() {
     let numParticipant = localStorage.getItem("numParticipant");
-    let condition = localStorage.getItem("condition");
+    
     let session = localStorage.getItem("session");
     
     let sexe = localStorage.getItem("sexe");
@@ -88,7 +89,7 @@
     };
 
     // Crear un archivo JSON local
-    let fileName = "participant" + numParticipant + "_experience" + experience + "_donnesParticipants.json";
+    let fileName = "participant" + numParticipant + "_experience" + experience + "_condition" + condition + "_donnesParticipants.json";
     downloadJSON(participantData, fileName);
 }
 
@@ -97,12 +98,12 @@ function saveReponsesData() {
 
     // Recuperar reponsesQuestionnaires
     let reponsesQuestionnaires = JSON.parse(localStorage.getItem("reponsesQuestionnaires"));
-    let fileNameQuestionnaires = "participant" + numParticipant + "_experience" + experience + "_questionnaires.json";
+    let fileNameQuestionnaires = "participant" + numParticipant + "_experience" + experience + "_condition" + condition + "_questionnaires.json";
     downloadJSON(reponsesQuestionnaires, fileNameQuestionnaires);
 
     // Recuperar reponses
     let reponses = JSON.parse(localStorage.getItem("reponses"));
-    let fileNameReponses = "participant" + numParticipant + "_experience" + experience + "_reponses.json";
+    let fileNameReponses = "participant" + numParticipant + "_experience" + experience + "_condition" + condition + "_reponses.json";
     downloadJSON(reponses, fileNameReponses);
 }
 

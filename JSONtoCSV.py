@@ -38,6 +38,7 @@ else:
 
     # Itérer sur les fichiers dans le dossier
     for nom_fichier in os.listdir(dossier):
+        print(nom_fichier)
         if nom_fichier.endswith('.json'):
             participant_id = nom_fichier.split('_')[0]  # Obtenir l'ID du participant
             type_fichier = nom_fichier.split('_')[1].split('.')[0]  # Obtenir le type de fichier

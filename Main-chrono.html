@@ -63,9 +63,9 @@
     <button class="bouton" id="envoyer">Envoyer</button>
     <div id="texteEchelle" style="display: none;">Veuillez évaluer votre réponse :</div>
     <div class = "echelle" id="echelle1" style="display: none;"></div>
-    <button class="bouton" id="evaluer1" style="display: none;">Évaluer</button>
+    <button class="bouton" id="evaluer1" style="display: none;">Continuer</button>
     <div class = "echelle" id="echelle2" style="display: none;"></div>
-    <button class="bouton" id="evaluer2" style="display: none;">Évaluer</button>
+    <button class="bouton" id="evaluer2" style="display: none;">Continuer</button>
     <div class = "echelle" id="echelle3" style="display: none;"></div>
     <button class="bouton" id="evaluer3" style="display: none;">Continuer</button>
     <div id="chronometre">00:00</div>
@@ -75,7 +75,7 @@
     </div>
     <button class="bouton" id="evaluerConnaissance" style="display: none;">Évaluer</button>-->
     <div class = "echelle" id="echelle4" style="display: none;"></div>
-    <button class="bouton" id="evaluer4" style="display: none;">Évaluer</button>
+    <button class="bouton" id="evaluer4" style="display: none;">Continuer</button>
     <script src="questions.js"></script>
     <script>
         // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
@@ -90,7 +90,7 @@
         let reponses = []; // Pour enregistrer les réponses
         // let minEchelle = 1; // Minimum de l'échelle
         // let maxEchelle = 5; // Maximum de l'échelle
-        let maxMots = 200; // Maximum de mots
+        let maxMots = 100; // Maximum de mots
         const experience = JSON.parse(localStorage.getItem('experience'));
         console.log(questions.length)
         function creerEchelle(idEchelle, maxEchelle,minEchelle) {
