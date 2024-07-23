@@ -83,6 +83,7 @@
         const nombreDeQuestions = questions.length;
         let indiceAleatoire;
         let ordreReponse = 1;
+        let alerted = false;
         /*let questions = [];
         for (let i = 1; i <= 50; i++) {
             questions.push("Question " + i);
@@ -327,6 +328,7 @@
             let secondes = Math.floor((Date.now() - debut) / 1000);
             let minutes = Math.floor(secondes / 60);
             secondes %= 60;
+            console.log(secondes)
             document.getElementById("chronometre").innerText = (minutes < 10 ? "0" : "") + minutes + ":" + (secondes < 10 ? "0" : "") + secondes;
 
             // Change la couleur du chronomètre en fonction du temps écoulé
@@ -338,10 +340,14 @@
                 document.getElementById("chronometre").style.backgroundColor = "orange";
             } else if (minutes < 10) {
                 document.getElementById("chronometre").style.backgroundColor = "red";
-            } else{
-                alert("Il s'est écoulé plus de dix minutes. Veuillez cliquer sur 'OK' pour continuer.");
-                repondre();
-            }
+            } else if ((minutes == 9 && secondes >= 58) || (minutes == 10 && secondes <= 3)){
+                document.getElementById("envoyer").disabled = true;
+            } else{                
+                
+                    alert("Il s'est écoulé plus de dix minutes. Veuillez cliquer sur 'OK' pour continuer.");
+                    repondre();
+                }
+                    
         }
         verifierEchelle("echelle1", "evaluer1");
         verifierEchelle("echelle2", "evaluer2");
