@@ -143,8 +143,9 @@
                     if (tiempoTranscurrido >= 60) {
                         clearInterval(intervalId);
                         alert("Il s'est écoulé plus d'une minute. Veuillez cliquer sur 'OK' pour continuer.");
+                        let reponse = document.getElementById("reponse").value.trim();
                         reponses[currentReponseIndex].ordreReponseMemorisation = currentPosArrayIndices;
-						reponses[currentReponseIndex].reponseMemorisation = "TimeOut";
+						reponses[currentReponseIndex].reponseMemorisation = "TimeOut  " + reponse;
 						reponses[currentReponseIndex].tempsReponseMemorisation = Date.now()-debut;
 						localStorage.setItem("reponses", JSON.stringify(reponses));
 						clearInterval(intervalId);

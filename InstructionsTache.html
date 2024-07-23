@@ -55,8 +55,9 @@
 
     <script>
         function redirectToOtherPage() {
+            const numparticipantURL = localStorage.getItem("numParticipant");
             // Remplacez 'autrePage.html' par le nom de votre page locale
-            window.location.href = 'Main-chrono.html';
+            window.location.href = 'Main-chrono.html?numParticipant=' + encodeURIComponent(numparticipantURL);
         }
     </script>
 </body>

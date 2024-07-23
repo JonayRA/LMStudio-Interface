@@ -96,7 +96,8 @@
         function redirectToOtherPage() {
             // Remplacez 'autrePage.html' par le nom de votre page locale
             if(!(experience == 2 && currentQuestionnaire == 2)){
-            window.location.href = 'Questionnaires.html';
+                const numparticipantURL = localStorage.getItem("numParticipant");
+            window.location.href = 'Questionnaires.html?numParticipant='+ encodeURIComponent(numparticipantURL);
         } else {
             // LIEN A OSPAN E.G.: window.location.href = 'OSPAN.html';
         }

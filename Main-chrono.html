@@ -194,7 +194,8 @@
                 console.log(reponses); // Ici, vous pouvez faire ce que vous voulez avec les réponses
                 clearInterval(intervalId); // Arrête le chronomètre
                 //window.location.href = 'PresentationTestMemoireSurprise.html';
-                window.location.href = 'InstructionsQuestionnaires.html';
+                const numparticipantURL = localStorage.getItem("numParticipant");
+                window.location.href = 'InstructionsQuestionnaires.html?numParticipant='+ encodeURIComponent(numparticipantURL);
             }
         }
 
