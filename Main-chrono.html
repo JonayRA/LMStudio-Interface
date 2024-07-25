@@ -80,6 +80,7 @@
     <script>
         // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
         localStorage.setItem("currentQuestionnaire", 0);
+        let averti = 0;
         const nombreDeQuestions = questions.length;
         let indiceAleatoire;
         let ordreReponse = 1;
@@ -168,6 +169,7 @@
         function afficherQuestion() {
             if (questions.length > (nombreDeQuestions-12)) {
                 //let question = questions.shift(); // Obtient la question suivante
+                averti = 0;
                 let question = obtenirQuestionAleatoire();
                 document.getElementById("question").innerText = question;
                 document.getElementById("texteEchelle").style.display = "none"; // Cache le texte de l'échelle
@@ -329,7 +331,7 @@
             let secondes = Math.floor((Date.now() - debut) / 1000);
             let minutes = Math.floor(secondes / 60);
             secondes %= 60;
-            console.log(secondes)
+            console.log(averti);
             document.getElementById("chronometre").innerText = (minutes < 10 ? "0" : "") + minutes + ":" + (secondes < 10 ? "0" : "") + secondes;
 
             // Change la couleur du chronomètre en fonction du temps écoulé
@@ -344,8 +346,10 @@
             } else if ((minutes == 9 && secondes >= 58) || (minutes == 10 && secondes <= 3)){
                 document.getElementById("envoyer").disabled = true;
             } else{                
-                
+                    if(averti == 0){
                     alert("Il s'est écoulé plus de dix minutes. Veuillez cliquer sur 'OK' pour continuer.");
+                    averti = 1;
+                }   
                     repondre();
                 }
                     
