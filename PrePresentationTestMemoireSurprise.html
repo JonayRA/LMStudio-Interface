@@ -42,25 +42,39 @@
             border: none;
             cursor: pointer;
         }
+        .welcome-button:disabled {
+            background-color: #ccc; /* change la couleur de fond lorsque le bouton est désactivé */
+            cursor: not-allowed; /* change le curseur lorsque le bouton est désactivé */
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="welcome-text">Instructions</div>
         <div class="instructions">
-            <p>Voici maintenant le dernier bloc que vous aurez à compléter. Il s’agit d’une étape dont vous n’avez pas été informé(e) préalablement. Cette étape dure au maximum 12 minutes.</p>
-
-            <p>À l’instant, une série de questions de mémorisation vous sera présentée à l’écran. Ces questions réfèrent aux éléments de réponses que vous avez précédemment fournis aux questions à court développement. Vous aurez une (1) minute pour répondre à la question. Une fois le temps écoulé, votre réponse sera enregistrée et vous passerez automatiquement à la prochaine question. À noter qu'il vous est INTERDIT d’utiliser les outils que vous avez employés au cours de la tâche de recherche d’informations (soit Internet ou l’agent conversationnel). Lorsque vous êtes prêt(e) à débuter, veuillez cliquer sur le bouton « Commencer » pour débuter.</p>
+            <p>Veuillez avertir l'équipe de recherche pour la tâche suivante.</p>
         </div>
-        <button class="welcome-button" onclick="redirectToOtherPage()">Commencer</button>
+        <button class="welcome-button" id="envoyer" onclick="redirectToOtherPage()">Commencer</button>
     </div>
 
     <script>
+        document.getElementById('envoyer').disabled = true;
         function redirectToOtherPage() {
             const numparticipantURL = localStorage.getItem("numParticipant");
             // Remplacez 'autrePage.html' par le nom de votre page locale
-            window.location.href = 'Memorisation.html?numParticipant='+ encodeURIComponent(numparticipantURL);
+            window.location.href = 'PresentationTestMemoireSurprise.html';
         }
+
+        setTimeout(() => {
+    document.getElementById('envoyer').disabled = false;
+        }, 60000);
+
+        document.addEventListener('keydown', function(event) {
+            if ((event.ctrlKey && event.shiftKey && event.key === "F") || (event.ctrlKey && event.key === 'Enter')) {
+                document.getElementById('envoyer').disabled = false;
+            }
+        });
+    
     </script>
 </body>
 </html>

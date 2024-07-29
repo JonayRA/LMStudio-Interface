@@ -343,13 +343,13 @@
                 document.getElementById("chronometre").style.backgroundColor = "orange";
             } else if (minutes < 10) {
                 document.getElementById("chronometre").style.backgroundColor = "red";
-            } else if ((minutes == 9 && secondes >= 58) || (minutes == 10 && secondes <= 3)){
-                document.getElementById("envoyer").disabled = true;
+            /*} else if ((minutes == 9 && secondes >= 58) || (minutes == 10 && secondes <= 3)){
+                document.getElementById("envoyer").disabled = true;*/
             } else{                
-                    if(averti == 0){
-                    alert("Il s'est écoulé plus de dix minutes. Veuillez cliquer sur 'OK' pour continuer.");
+                /*if(averti == 0){
+                    // alert("Il s'est écoulé plus de dix minutes. Veuillez cliquer sur 'OK' pour continuer.");
                     averti = 1;
-                }   
+                }   */
                     repondre();
                 }
                     

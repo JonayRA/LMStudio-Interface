@@ -284,7 +284,11 @@ for (let i = 0; i < cuestionario.Items.length; i++) {
         localStorage.setItem("currentQuestionnaire", currentQuestionnaire);
         if(currentQuestionnaire == 3){
         event.preventDefault();
-        window.location.href = 'PresentationTestMemoireSurprise.html';
+        if(experience == 2){
+            window.location.href = 'PresentationTestMemoireSurprise.html';
+        }else{
+            window.location.href = 'PrePresentationTestMemoireSurprise.html';
+        }
         }/*else if (currentQuestionnaire == 2 && experience == 2){
             event.preventDefault();
             window.location.href = 'InstructionsQuestionnaires.html';
