@@ -252,7 +252,7 @@
             document.getElementById("evaluer2").style.display = "block"; // Affiche le bouton d'évaluation 2
             reinitialiserEchelle("echelle2","evaluer2"); // Réinitialise l'échelle 2
             debut = Date.now(); // Enregistre le début du temps
-            intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
+            //intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
         }
 
         function evaluer2() {
@@ -266,8 +266,8 @@
             document.getElementById("texteEchelle").innerText = "J’ai confiance en la source numérique que j’ai utilisée pour répondre à la question.";
             document.getElementById("evaluer3").style.display = "block"; // Affiche le bouton d'évaluation 2
             reinitialiserEchelle("echelle3","evaluer3"); // Réinitialise l'échelle 2
-            debut = Date.now(); // Enregistre le début du temps
-            intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
+            //debut = Date.now(); // Enregistre le début du temps
+            //intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre
         } else {
             document.getElementById("question").innerText = "";
             document.getElementById("texteEchelle").innerText = "Sur une échelle de 0 à 10, j’estime ma connaissance initiale par rapport au sujet de la question au niveau suivant. 0=Aucune connaîssance. 10=Connaîssance experte";
@@ -351,7 +351,7 @@
                     averti = 1;
                 }   */
                     repondre();
-                }
+            }
                     
         }
         verifierEchelle("echelle1", "evaluer1");
