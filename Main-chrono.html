@@ -216,6 +216,7 @@
             if(experience == 1){
                 document.getElementById("texteEchelle").innerText = "J'ai confiance en la réponse que j'ai offerte à la question présentée.";
             }else if (experience == 2){
+				document.getElementById("question").innerText = "Veuillez indiquer de 1 à 5. 1 = très peu d'effort et 5 = beaucoup d'effort";
                 document.getElementById("texteEchelle").innerText = "Quel niveau d'effort cette question vous a-t-elle demandé?";
             }
             document.getElementById("compteur").style.display = "none"; // Cache le compteur de mots
@@ -247,6 +248,7 @@
             if (experience == 1){
             document.getElementById("texteEchelle").innerText = "J’ai utilisé des informations issues de sources numériques pour répondre à la question présentée.";
         }else if (experience == 2){
+				document.getElementById("question").innerText = "Veuillez indiquer de 1 à 5. 1 = très peu d'effort et 5 = beaucoup d'effort";
                 document.getElementById("texteEchelle").innerText = "Pour cette question, quel niveau d'effort avez-vous choisi de déployer?";
             }
             document.getElementById("evaluer2").style.display = "block"; // Affiche le bouton d'évaluation 2
