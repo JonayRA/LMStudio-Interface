@@ -60,6 +60,15 @@
     <div id="question"></div>
     <textarea id="reponse" placeholder="Écrivez votre réponse ici" oninput="compterMots()" maxlength="100000"></textarea>
     <div id="compteur"></div>
+    <p id="texteInfosVerifiées" style="display: none;">Vous devez vérifier les informations fournies par l’agent conversationnel avant de fournir une réponse. Veuillez choisir.</p>
+
+    <label style="display: none;" id="labelInfosVerifiées">
+        <input type="radio" name="informationsVerifiees" value="oui" id="infosVerifiées" oninput="compterMots()"> Oui, j'ai vérifié les informations.
+    </label>
+
+    <label style="margin-left: 15px; display: none;" id="labelInfosNonVerifiees">
+        <input type="radio" name="informationsVerifiees" value="non" id="infosVerifiées" oninput="compterMots()"> Non, je n'ai pas vérifié les informations.
+    </label>
     <button class="bouton" id="envoyer">Envoyer</button>
     <div id="texteEchelle" style="display: none;">Veuillez évaluer votre réponse :</div>
     <div class = "echelle" id="echelle1" style="display: none;"></div>
@@ -80,11 +89,19 @@
     <script>
         // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
         localStorage.setItem("currentQuestionnaire", 0);
+        const condition  = localStorage.getItem("condition");
         let averti = 0;
         const nombreDeQuestions = questions.length;
         let indiceAleatoire;
         let ordreReponse = 1;
         let alerted = false;
+
+        if (condition == 3){
+            document.getElementById("texteInfosVerifiées").style.display = "block";
+            document.getElementById("labelInfosVerifiées").style.display = "inline";
+            document.getElementById("labelInfosNonVerifiees").style.display = "inline";
+        }
+
         /*let questions = [];
         for (let i = 1; i <= 50; i++) {
             questions.push("Question " + i);
@@ -95,6 +112,21 @@
         let maxMots = 100; // Maximum de mots
         const experience = JSON.parse(localStorage.getItem('experience'));
         console.log(questions.length)
+
+        function verifierSelection() {
+        const radiosInfosverifies = document.querySelectorAll('input[name="informationsVerifiees"]');
+        let selection = null;
+
+        radiosInfosverifies.forEach(radiosInfosverifies => {
+            if (radiosInfosverifies.checked) {
+            selection = radiosInfosverifies.value;
+            }
+        });
+        return selection;
+        }
+
+        
+
         function creerEchelle(idEchelle, maxEchelle,minEchelle) {
                 let divEchelle = document.getElementById(idEchelle);
 
@@ -186,6 +218,11 @@
                 document.getElementById("compteur").style.display = "block"; // Affiche le compteur de mots
                 document.getElementById("reponse").value = ""; // Nettoie la réponse
                 document.getElementById("chronometre").style.display = "block"; // Affiche le chronometre
+                if (condition == 3){
+                    document.getElementById("labelInfosVerifiées").style.display = "inline";
+                    document.getElementById("labelInfosNonVerifiees").style.display = "inline";
+                    document.getElementById("texteInfosVerifiées").style.display = "block";
+                }
                 //document.getElementById("connaissance").style.display = "none"; // Affiche la question de connaissance
                 //document.getElementById("evaluerConnaissance").style.display = "none"; // Affiche le bouton d'évaluation de connaissance
                 compterMots(); // Met à jour le compteur de mots
@@ -207,11 +244,21 @@
             reponses[reponses.length - 1].ordreReponses = ordreReponse;
             reponses[reponses.length - 1].response = reponse;
             reponses[reponses.length - 1].tempsReponse = Date.now()-debut;
+            if (condition == 3){
+            reponses[reponses.length - 1].informationsVerifiees = verifierSelection();
+            }
             document.getElementById("reponse").style.display = "none"; // Cache la réponse
             document.getElementById("texteEchelle").style.display = "block"; // Affiche le texte de l'échelle
             document.getElementById("echelle1").style.display = "block"; // Affiche l'échelle 1
             document.getElementById("envoyer").style.display = "none"; // Cache le bouton d'envoi
             document.getElementById("evaluer1").style.display = "block"; // Affiche le bouton d'évaluation 1
+            document.getElementById("labelInfosVerifiées").style.display = "none";
+            document.getElementById("labelInfosNonVerifiees").style.display = "none";
+            document.getElementById("texteInfosVerifiées").style.display = "none";
+            const radiosInfosVerifiees = document.querySelectorAll('input[name="informationsVerifiees"]');
+                radiosInfosVerifiees.forEach(radiosInfosVerifiees => {
+                    radiosInfosVerifiees.checked = false;
+                });
             document.getElementById("question").innerText = "Veuillez indiquer de 1 à 5. 1 = fortement en désaccord et 5 = fortement en accord";
             if(experience == 1){
                 document.getElementById("texteEchelle").innerText = "J'ai confiance en la réponse que j'ai offerte à la question présentée.";
@@ -325,7 +372,17 @@
             } else if (mots == 0) {
                 document.getElementById("envoyer").disabled = true;
             } else {
-                document.getElementById("envoyer").disabled = false;
+                if (condition == 3){
+                    let selection = verifierSelection();
+                    if (selection){
+                        document.getElementById("envoyer").disabled = false;
+                    } else {
+                        document.getElementById("envoyer").disabled = true;
+                    }
+                } else {
+                    document.getElementById("envoyer").disabled = false;
+                }
+                // document.getElementById("envoyer").disabled = false;
             }
         }
 
