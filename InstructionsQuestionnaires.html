@@ -18,8 +18,8 @@
             justify-content: center;*/
             align-items: center;
             height: 100vh;
-            /*overflow-y: auto; /* Permite el desplazamiento vertical */
-            /*padding: 20px; /* Añade un poco de espacio alrededor del contenido */
+            /*overflow-y: auto; 
+            /*padding: 20px; */
         }
 
         .welcome-text {
@@ -43,7 +43,7 @@
             cursor: pointer;
         }
          li {
-            padding-bottom: 10px; /* Ajusta este valor según lo necesites */
+            padding-bottom: 10px; 
         }
     </style>
 </head>
@@ -63,13 +63,11 @@
             const currentQuestionnaire = localStorage.getItem('currentQuestionnaire');
             const experience = localStorage.getItem('experience');
         function cambiarContenido() {
-            // Obtener la variable de localStorage
             
             console.log(condition,experience)
             
 
 
-            // Verificar y cambiar el contenido de la div basado en la opción
             let nuevoContenido;
             if ((condition == 2 || condition == 3 || condition == 4) && experience == 1) {
 
@@ -86,15 +84,12 @@
                 nuevoContenido = '<p>Combination non definie</p>';
             }
 
-            // Cambiar el contenido de la div
             document.getElementById('Instructions').innerHTML = nuevoContenido;
         }
 
         cambiarContenido();
 
-        // Configurar una opción inicial para pruebas
         function redirectToOtherPage() {
-            // Remplacez 'autrePage.html' par le nom de votre page locale
             if(!(experience == 2 && currentQuestionnaire == 2)){
                 const numparticipantURL = localStorage.getItem("numParticipant");
             window.location.href = 'Questionnaires.html?numParticipant='+ encodeURIComponent(numparticipantURL);

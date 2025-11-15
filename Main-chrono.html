@@ -34,10 +34,10 @@
             cursor: not-allowed; /* change le curseur lorsque le bouton est désactivé */
         }
         #compteur {
-            text-align: left; /* alinea el texto a la derecha */
+            text-align: left; 
         }
         #envoyer {
-            display: block; /* hace que el botón sea un bloque de nivel */
+            display: block; 
             text-align: center; /* alinea el botón a la derecha */
         }
         #evaluerConnaissance{
@@ -66,9 +66,7 @@
         <input type="radio" name="informationsVerifiees" value="oui" id="infosVerifiées" oninput="compterMots()"> Oui, j'ai vérifié les informations.
     </label>
 
-    <!--<label style="margin-left: 15px; display: none;" id="labelInfosNonVerifiees">
-        <input type="radio" name="informationsVerifiees" value="non" id="infosVerifiées" oninput="compterMots()"> Non, je n'ai pas vérifié les informations.
-    </label>-->
+
     <button class="bouton" id="envoyer">Envoyer</button>
     <div id="texteEchelle" style="display: none;">Veuillez évaluer votre réponse :</div>
     <div class = "echelle" id="echelle1" style="display: none;"></div>
@@ -78,16 +76,11 @@
     <div class = "echelle" id="echelle3" style="display: none;"></div>
     <button class="bouton" id="evaluer3" style="display: none;">Continuer</button>
     <div id="chronometre">00:00</div>
-    <!--<div id="connaissance" style="display: none;">
-
-        <input type="number" id="niveauConnaissance" min="0" max="100">
-    </div>
-    <button class="bouton" id="evaluerConnaissance" style="display: none;">Évaluer</button>-->
+    
     <div class = "echelle" id="echelle4" style="display: none;"></div>
     <button class="bouton" id="evaluer4" style="display: none;">Continuer</button>
     <script src="questions.js"></script>
     <script>
-        // let questions = ["Question 1", "Question 2", "Question 3"]; // Vos questions
         localStorage.setItem("currentQuestionnaire", 0);
         const condition  = localStorage.getItem("condition");
         let averti = 0;
@@ -99,13 +92,9 @@
         if (condition == 3){
             document.getElementById("texteInfosVerifiées").style.display = "block";
             document.getElementById("labelInfosVerifiées").style.display = "inline";
-            // document.getElementById("labelInfosNonVerifiees").style.display = "inline";
         }
 
-        /*let questions = [];
-        for (let i = 1; i <= 50; i++) {
-            questions.push("Question " + i);
-        }*/
+        
         let reponses = []; // Pour enregistrer les réponses
         // let minEchelle = 1; // Minimum de l'échelle
         // let maxEchelle = 5; // Maximum de l'échelle
@@ -134,8 +123,8 @@
 
                 for (let i = minEchelle; i <= maxEchelle; i++) {
                     let optionDiv = document.createElement('div');
-                    optionDiv.style.display = 'inline-block'; // Ajoutez cette ligne
-                    optionDiv.style.textAlign = 'center'; // Ajoutez cette ligne
+                    optionDiv.style.display = 'inline-block'; 
+                    optionDiv.style.textAlign = 'center'; 
                     optionDiv.style.margin = '0 10px';
                     let radio = document.createElement("input");
                     radio.type = "radio";
@@ -146,14 +135,14 @@
                         verifierEchelle(idEchelle, idBouton);
                     });
                     optionDiv.appendChild(radio);
-                    optionDiv.appendChild(document.createElement('br')); // Ajoutez cette ligne
+                    optionDiv.appendChild(document.createElement('br'));
                     optionDiv.appendChild(document.createTextNode(i));
                     divEchelle.appendChild(optionDiv);
                 }
 
                 let optionDiv = document.createElement('div');
-                optionDiv.style.display = 'inline-block'; // Ajoutez cette ligne
-                optionDiv.style.textAlign = 'center'; // Ajoutez cette ligne
+                optionDiv.style.display = 'inline-block'; 
+                optionDiv.style.textAlign = 'center'; 
                 optionDiv.style.margin = '0 10px';
                 let radioNoAplica = document.createElement("input");
                 radioNoAplica.type = "radio";
@@ -191,8 +180,8 @@
 
         document.addEventListener('keydown', function(event) {
             if (event.ctrlKey && event.shiftKey && event.key === "U") {
-                let x = 15; // Cambia esto por el número de preguntas que quieres mantener
-                questions.splice(x); // Esto eliminará todas las preguntas excepto las primeras 'x'
+                let x = 15; 
+                questions.splice(x); 
                 console.log(questions.length);
             }
             
@@ -200,7 +189,7 @@
 
         function afficherQuestion() {
             if (questions.length > (nombreDeQuestions-12)) {
-                //let question = questions.shift(); // Obtient la question suivante
+                //let question = questions.shift(); 
                 averti = 0;
                 let question = obtenirQuestionAleatoire();
                 document.getElementById("question").innerText = question;
@@ -223,8 +212,6 @@
                     // document.getElementById("labelInfosNonVerifiees").style.display = "inline";
                     document.getElementById("texteInfosVerifiées").style.display = "block";
                 }
-                //document.getElementById("connaissance").style.display = "none"; // Affiche la question de connaissance
-                //document.getElementById("evaluerConnaissance").style.display = "none"; // Affiche le bouton d'évaluation de connaissance
                 compterMots(); // Met à jour le compteur de mots
                 debut = Date.now(); // Enregistre le début du temps
                 intervalId = setInterval(majChronometre, 1000); // Commence le chronomètre

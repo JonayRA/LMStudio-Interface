@@ -62,7 +62,6 @@
     
 
     <script>
-        // Obtener referencia al botón
         const enlaceBoton = document.getElementById('enlaceBoton');
         const sessionInput = document.getElementById("session1");
         const conditionInput = document.getElementById("condition1");
@@ -92,9 +91,7 @@
 
 
 
-        // Agregar un evento click al botón
         enlaceBoton.addEventListener('click', function() {
-            // Cambiar la ubicación a la página deseada
             if (consentement.checked) {
             const numParticipant = document.getElementById("numParticipant1").value;
             const condition = document.getElementById("condition1").value;
